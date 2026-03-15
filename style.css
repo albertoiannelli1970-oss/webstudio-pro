@@ -11,6 +11,108 @@
     --danger: #ef4444;
 }
 
+.hidden { display: none !important; }
+.hidden-app { filter: blur(20px); pointer-events: none; opacity: 0; transition: all 1s ease; }
+.app-visible { filter: blur(0); pointer-events: all; opacity: 1; }
+
+/* Landing Page Overlay */
+.glass-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(10, 37, 64, 0.8), #000);
+    backdrop-filter: blur(10px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landing-content {
+    max-width: 500px;
+    width: 90%;
+    padding: 50px;
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.landing-logo {
+    width: 120px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px var(--primary-glow));
+}
+
+.landing-title {
+    font-size: 2.5rem;
+    font-family: 'Outfit';
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(to bottom, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.landing-slogan {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.btn-large {
+    padding: 18px 60px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.selection-text {
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.selection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.selection-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 30px 20px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.selection-card i {
+    width: 40px;
+    height: 40px;
+    color: var(--primary);
+}
+
+.selection-card:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-5px);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -78,21 +180,94 @@ body {
 #app-container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
 .sidebar {
-    width: 220px;
-    margin: 15px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    bottom: 15px;
+    width: 280px;
+    z-index: 1000;
+    transform: translateX(-320px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 20px;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu-toggle {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+}
+
+/* Dashboard App Grid Enhanced */
+.clean-app-grid {
+    padding: 40px 20px;
+}
+
+.launch-grid-enhanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.launch-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    gap: 12px;
+}
+
+.launch-item:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.launch-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    margin-bottom: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.launch-item span {
+    font-family: 'Outfit';
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
 }
 
 .brand {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .brand-logo {

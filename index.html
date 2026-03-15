@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prima Nota® 1.0 - Il Tuo Ecosistema Componibile</title>
+    <title>WebStudio Pro® 1.0 - La tua azienda, sotto controllo.</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a2540">
@@ -22,13 +22,43 @@
     <div class="bg-glow bg-glow-2"></div>
     <div class="bg-grid"></div>
 
-    <div id="app-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar glass-panel">
+    <!-- Landing Page Overlay -->
+    <div id="landing-overlay" class="glass-overlay">
+        <div class="landing-content glass-panel animate-fade-in">
+            <img src="logo.png" alt="WebStudio Logo" class="landing-logo">
+            <h1 class="landing-title">WebStudio Pro<sup>®</sup> 1.0</h1>
+            <p class="landing-slogan">"La tua azienda, sotto controllo."</p>
+            
+            <div id="landing-step-1">
+                <button class="btn btn-primary btn-large" onclick="showStep2()">ENTRA</button>
+            </div>
+            
+            <div id="landing-step-2" class="hidden">
+                <p class="selection-text">Identificati per accedere all'ecosistema:</p>
+                <div class="selection-grid">
+                    <button class="btn btn-outline selection-card" onclick="enterApp('Azienda')">
+                        <i data-lucide="building-2"></i>
+                        <span>AZIENDA</span>
+                    </button>
+                    <button class="btn btn-outline selection-card" onclick="enterApp('Privato')">
+                        <i data-lucide="user"></i>
+                        <span>PRIVATO</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="hidden-app">
+        <!-- Sidebar Navigation (Dropdown Drawer) -->
+        <aside class="sidebar glass-panel" id="main-sidebar">
+            <div class="sidebar-header" style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                <button class="btn btn-icon" onclick="toggleSidebar()"><i data-lucide="x"></i></button>
+            </div>
             <div class="brand">
-                <img src="logo.png" alt="Prima Nota Logo" class="brand-logo">
+                <img src="logo.png" alt="WebStudio Logo" class="brand-logo">
                 <div class="brand-text">
-                    <h1>Prima Nota<sup>®</sup></h1>
+                    <h1>WebStudio Pro<sup>®</sup></h1>
                     <span class="version-badge">v 1.0</span>
                 </div>
             </div>
@@ -37,7 +67,7 @@
                 <div class="nav-section">MAIN</div>
                 <a href="#" class="nav-item active" data-target="dashboard">
                     <i data-lucide="layout-grid"></i>
-                    <span>Dashboard</span>
+                    <span>Ecosistema App</span>
                 </a>
                 <a href="#" class="nav-item" data-target="primanota">
                     <i data-lucide="wallet"></i>
@@ -105,9 +135,12 @@
         <main class="workspace">
             <!-- Top Header -->
             <header class="top-header glass-panel">
-                <div class="page-title">
-                    <h2 id="current-page-title">Dashboard Operativa</h2>
-                    <p id="current-page-desc">Benvenuto nel tuo centro di comando unificato.</p>
+                <div class="header-left">
+                    <button class="btn btn-icon menu-toggle" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+                    <div class="page-title">
+                        <h2 id="current-page-title">Ecosistema Micro-App</h2>
+                        <p id="current-page-desc">Scegli il modulo da avviare.</p>
+                    </div>
                 </div>
                 <div class="header-actions">
                     <div class="event-monitor" id="event-monitor">
@@ -124,41 +157,9 @@
                 
                 <!-- View: Dashboard -->
                 <div id="view-dashboard" class="view-section active">
-                    <div class="welcome-banner glass-panel">
-                        <div class="banner-content">
-                            <h3>Benvenuto in Prima Nota® 1.0</h3>
-                            <p>Hai <strong>3</strong> moduli attivi e il transito dati è <span class="text-success">autorizzato</span>.</p>
-                        </div>
-                        <img src="logo.png" style="width: 80px; opacity: 0.5;">
-                    </div>
-
-                    <div class="grid-cards">
-                        <div class="stat-card glass-panel">
-                            <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i data-lucide="layers"></i></div>
-                            <div class="stat-info">
-                                <span>Moduli Installati</span>
-                                <h4>3 / 10</h4>
-                            </div>
-                        </div>
-                        <div class="stat-card glass-panel">
-                            <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i data-lucide="zap"></i></div>
-                            <div class="stat-info">
-                                <span>Dati Scambiati (Oggi)</span>
-                                <h4 id="stat-exchanges">0</h4>
-                            </div>
-                        </div>
-                        <div class="stat-card glass-panel">
-                            <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i data-lucide="shield-check"></i></div>
-                            <div class="stat-info">
-                                <span>Policy Privacy</span>
-                                <h4>Personalizzata</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modules-quick-launch mt-4">
-                        <h3 class="section-title">Lancio Rapido</h3>
-                        <div class="launch-grid" id="quick-launch-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px;">
+                    <div class="clean-app-grid">
+                        <h3 class="section-title mb-4" style="text-align: center; font-size: 24px;">Le tue Applicazioni</h3>
+                        <div class="launch-grid-enhanced" id="quick-launch-grid">
                             <!-- Populated by JS -->
                         </div>
                     </div>

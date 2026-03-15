@@ -1,5 +1,5 @@
 /**
- * WebStudio Pro Core (Event Bus & Permissions Controller)
+ * WebStudio Pro 1.0 Core (Event Bus & Permissions Controller)
  * Simulazione del sistema centrale della piattaforma.
  */
 
@@ -11,7 +11,7 @@ class WebStudioCore {
         };
         this.events = {};
         this.exchangeCount = 0;
-        this.logMessage('[SYSTEM] WebStudio Pro Core Inizializzato. In attesa di segnali...', 'system');
+        this.logMessage('[SYSTEM] WebStudio Pro 1.0 Core Inizializzato. In attesa di segnali...', 'system');
     }
 
     // Aggiorna permessi di comunicazione tra moduli

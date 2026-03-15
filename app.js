@@ -1,5 +1,5 @@
 /**
- * WebStudio Pro - Interfaccia Utente e Gestione Sandbox
+ * WebStudio Pro 1.0 - Interfaccia Utente e Gestione Sandbox
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
+            
+            // Chiudi il menu a tendina dopo la selezione
+            toggleSidebar(false);
+
             // Rimuovi toggle attivi
             navItems.forEach(nav => nav.classList.remove('active'));
             views.forEach(view => view.classList.remove('active'));
@@ -47,29 +51,66 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSandboxSimulators();
 });
 
+// --- WebStudio UI Logic ---
+function toggleSidebar(force) {
+    const sidebar = document.getElementById('main-sidebar');
+    if(force === true) {
+        sidebar.classList.add('open');
+    } else if (force === false) {
+        sidebar.classList.remove('open');
+    } else {
+        sidebar.classList.toggle('open');
+    }
+}
+
+// --- WebStudio Landing Page Logic ---
+function showStep2() {
+    document.getElementById('landing-step-1').classList.add('hidden');
+    document.getElementById('landing-step-2').classList.remove('hidden');
+    if(window.lucide) window.lucide.createIcons();
+}
+
+function enterApp(type) {
+    const overlay = document.getElementById('landing-overlay');
+    const app = document.getElementById('app-container');
+    
+    // Hide overlay with animation
+    overlay.style.opacity = '0';
+    overlay.style.transform = 'scale(1.1)';
+    
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        app.classList.remove('hidden-app');
+        app.classList.add('app-visible');
+        
+        window.coreSystem.logMessage(`[SECURITY] Accesso autorizzato come profilo: ${type.toUpperCase()}`, 'success');
+        
+        // Update user profile in sidebar
+        const badge = document.querySelector('.user-info span');
+        if(badge) badge.textContent = `Profilo: ${type}`;
+    }, 800);
+}
+
 function setupSandboxSimulators() {
-    // Popola dinamicamente le scorciatoie delle App nella Dashboard
+    // Popola dinamicamente le scorciatoie delle App nella Dashboard (Homepage pulita)
     const grid = document.getElementById('quick-launch-grid');
     if(grid) {
         const apps = [
-            { id: 'pos', name: 'Punto Cassa', icon: 'monitor', color: '#ef4444' },
-            { id: 'inventory', name: 'Magazzino', icon: 'package', color: '#10b981' },
-            { id: 'invoices', name: 'Fatturazione', icon: 'file-text', color: '#3b82f6' },
-            { id: 'quotes', name: 'Preventivi', icon: 'calculator', color: '#eab308' },
-            { id: 'contacts', name: 'Rubrica', icon: 'users', color: '#8b5cf6' },
-            { id: 'fiscal', name: 'Area Fiscale', icon: 'shield-check', color: '#10b981' },
-            { id: 'primanota', name: 'Prima Nota', icon: 'pie-chart', color: '#0ea5e9' }
+            { id: 'primanota', name: 'Prima Nota®', icon: 'logo-primanota.png' },
+            { id: 'contacts', name: 'Rubrica®', icon: 'logo-rubrica.png' },
+            { id: 'invoices', name: 'Fatturazione®', icon: 'logo-fatture.png' },
+            { id: 'inventory', name: 'Magazzino®', icon: 'logo-magazzino.png' },
+            { id: 'calendar', name: 'Agenda®', icon: 'logo-agenda.png' },
+            { id: 'pos', name: 'Punto Cassa®', icon: 'logo-cassa.png' },
+            { id: 'quotes', name: 'Preventivi®', icon: 'logo-preventivi.png' }
         ];
 
         let html = '';
         apps.forEach(app => {
             html += `
-                <div class="glass-panel" style="padding: 15px; cursor:pointer; text-align:center; transition: all 0.2s; border: 1px solid transparent;" 
-                     onmouseenter="this.style.borderColor='${app.color}'; this.style.transform='translateY(-3px)';"
-                     onmouseleave="this.style.borderColor='transparent'; this.style.transform='translateY(0)';"
-                     onclick="document.querySelector('.nav-item[data-target=\\'${app.id}\\']').click()">
-                    <i data-lucide="${app.icon}" style="width: 32px; height: 32px; color: ${app.color}; margin-bottom: 10px;"></i>
-                    <h4 style="margin:0; font-family:'Outfit'; font-size: 14px;">${app.name}</h4>
+                <div class="launch-item animate-fade-in" onclick="document.querySelector('.nav-item[data-target=\\'${app.id}\\']').click()">
+                    <img src="${app.icon}" alt="${app.name}">
+                    <span>${app.name}</span>
                 </div>
             `;
         });
@@ -736,7 +777,7 @@ class RubricaApp {
             window.coreSystem.logMessage(`[APP: RUBRICA] Nuovo contatto creato: ${name}`, 'action');
             
             // --- EVENT BUS PUBLISH ---
-            // Quando creo un cliente, informo tutto l'ecosistema WebStudio Pro (se i permessi sono attivi)
+            // Quando creo un cliente, informo tutto l'ecosistema Prima Nota® (se i permessi sono attivi)
             window.coreSystem.publish('rubrica', 'nuovo_cliente', { id: contactData.id, nome: contactData.name });
         }
 

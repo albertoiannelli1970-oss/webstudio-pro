@@ -1,6 +1,6 @@
 {
-  "name": "Prima Nota® - WebStudio Pro",
-  "short_name": "Prima Nota®",
+  "name": "WebStudio Pro® 1.0",
+  "short_name": "WebStudio Pro",
   "description": "Ecosistema di Micro-App per la gestione aziendale",
   "start_url": "./index.html",
   "display": "standalone",
