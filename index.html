@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prima Nota® 1.0 - Il Tuo Ecosistema Componibile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a2540">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="dark-theme">
+    <!-- Starry/Gradient Background -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-grid"></div>
+
+    <div id="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <img src="logo.png" alt="Prima Nota Logo" class="brand-logo">
+                <div class="brand-text">
+                    <h1>Prima Nota<sup>®</sup></h1>
+                    <span class="version-badge">v 1.0</span>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <div class="nav-section">MAIN</div>
+                <a href="#" class="nav-item active" data-target="dashboard">
+                    <i data-lucide="layout-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-target="primanota">
+                    <i data-lucide="wallet"></i>
+                    <span>Prima Nota<sup>®</sup></span>
+                </a>
+                <a href="#" class="nav-item" data-target="contacts">
+                    <i data-lucide="users"></i>
+                    <span>Rubrica Intelligente<sup>®</sup></span>
+                </a>
+                <a href="#" class="nav-item" data-target="quotes">
+                    <i data-lucide="calculator"></i>
+                    <span>Preventivi PRO<sup>®</sup></span>
+                </a>
+                <a href="#" class="nav-item" data-target="invoices">
+                    <i data-lucide="file-text"></i>
+                    <span>Fatturazione P.IVA<sup>®</sup></span>
+                    <span class="badge" style="background:#8b5cf6; color:white; padding: 2px 5px; font-size:9px; border-radius:4px; margin-left:auto;">PRO</span>
+                </a>
+                <a href="#" class="nav-item" data-target="inventory">
+                    <i data-lucide="package"></i>
+                    <span>Magazzino<sup>®</sup></span>
+                </a>
+                <a href="#" class="nav-item" data-target="calendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Agenda Condivisa<sup>®</sup></span>
+                </a>
+                <a href="#" class="nav-item" data-target="pos">
+                    <i data-lucide="monitor"></i>
+                    <span>Punto Cassa<sup>®</sup></span>
+                </a>
+                <a href="#" class="nav-item" data-target="fiscal">
+                    <i data-lucide="shield-check"></i>
+                    <span style="color:#10b981; font-weight:bold;">Cassetto Fiscale G.d.F.</span>
+                </a>
+                <a href="#" class="nav-item" data-target="modules">
+                    <i data-lucide="blocks"></i>
+                    <span>Moduli (Dev Sandbox)</span>
+                </a>
+                
+                <div class="nav-section mt-4">SISTEMA</div>
+                <a href="#" class="nav-item" data-target="data-flow">
+                    <i data-lucide="git-merge"></i>
+                    <span>Flusso Dati & Privacy</span>
+                    <span class="sync-indicator active" id="global-sync-dot"></span>
+                </a>
+                <a href="#" class="nav-item" data-target="settings">
+                    <i data-lucide="settings"></i>
+                    <span>Impostazioni Piattaforma</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p class="slogan">"La tua azienda, sotto controllo."</p>
+                <div class="user-profile">
+                    <div class="avatar">A</div>
+                    <div class="user-info">
+                        <strong>Admin User</strong>
+                        <span>Piano Pro<sup>®</sup> Unlocked</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Top Header -->
+            <header class="top-header glass-panel">
+                <div class="page-title">
+                    <h2 id="current-page-title">Dashboard Operativa</h2>
+                    <p id="current-page-desc">Benvenuto nel tuo centro di comando unificato.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="event-monitor" id="event-monitor">
+                        <i data-lucide="activity"></i>
+                        <span id="event-monitor-text">Nessun transito dati</span>
+                    </div>
+                    <button class="btn btn-icon"><i data-lucide="bell"></i></button>
+                    <button class="btn btn-primary"><i data-lucide="plus"></i> Installa App</button>
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div class="views-container">
+                
+                <!-- View: Dashboard -->
+                <div id="view-dashboard" class="view-section active">
+                    <div class="welcome-banner glass-panel">
+                        <div class="banner-content">
+                            <h3>Benvenuto in Prima Nota® 1.0</h3>
+                            <p>Hai <strong>3</strong> moduli attivi e il transito dati è <span class="text-success">autorizzato</span>.</p>
+                        </div>
+                        <img src="logo.png" style="width: 80px; opacity: 0.5;">
+                    </div>
+
+                    <div class="grid-cards">
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i data-lucide="layers"></i></div>
+                            <div class="stat-info">
+                                <span>Moduli Installati</span>
+                                <h4>3 / 10</h4>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i data-lucide="zap"></i></div>
+                            <div class="stat-info">
+                                <span>Dati Scambiati (Oggi)</span>
+                                <h4 id="stat-exchanges">0</h4>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i data-lucide="shield-check"></i></div>
+                            <div class="stat-info">
+                                <span>Policy Privacy</span>
+                                <h4>Personalizzata</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modules-quick-launch mt-4">
+                        <h3 class="section-title">Lancio Rapido</h3>
+                        <div class="launch-grid" id="quick-launch-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px;">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Prima Nota -->
+                <div id="view-primanota" class="view-section">
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(0, 0, 0, 0.4));">
+                        <div style="position:relative;">
+                            <img src="logo.png" alt="Prima Nota App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
+                        </div>
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Prima Nota<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Tracciamento globale di entrate e uscite in tempo reale."</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-4 mb-4">
+                        <h3 style="font-size: 16px; margin-bottom: 15px;">Registrazione Movimentazioni</h3>
+                        
+                        <form id="form-primanota" onsubmit="appPrimaNota.registraMovimento(event)" style="display:flex; gap:15px; align-items:flex-end; flex-wrap:wrap;">
+                            <div class="input-group">
+                                <label>Data</label>
+                                <input type="date" id="pn-data" required style="background: rgba(0,0,0,0.3); color:#fff; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                            </div>
+                            <div class="input-group">
+                                <label>Tipo</label>
+                                <select id="pn-tipo" style="background: rgba(0,0,0,0.3); color:#fff; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                                    <option value="entrata">Entrata (+)</option>
+                                    <option value="uscita">Uscita (-)</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="flex:1;">
+                                <label>Causale</label>
+                                <input type="text" id="pn-desc" required placeholder="Es. Fattura #001" style="width:100%; background: rgba(0,0,0,0.3); color:#fff; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                            </div>
+                            <div class="input-group" style="width:150px;">
+                                <label>Importo (€)</label>
+                                <input type="number" step="0.01" id="pn-importo" required placeholder="0.00" style="width:100%; background: rgba(0,0,0,0.3); color:#fff; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i data-lucide="save"></i> Registra</button>
+                        </form>
+                    </div>
+
+                    <div class="glass-panel p-4">
+                        <h3 style="font-size: 16px; margin-bottom: 15px;">Ultimi Movimenti</h3>
+                        <div id="pn-table-container" style="color: var(--text-muted); font-size: 13px;">
+                            <div style="text-align: center; padding: 30px;">
+                                <i data-lucide="file-x" style="width:40px; height:40px; opacity:0.3; margin-bottom:10px;"></i>
+                                <p>Nessun movimento registrato.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Contacts (Rubrica Intelligente) -->
+                <div id="view-contacts" class="view-section">
+                    
+                    <!-- Rubrica Header Banner -->
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0, 0, 0, 0.4));">
+                        <img src="logo-rubrica.png" alt="Rubrica App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Rubrica Intelligente<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">Il tuo hub centralizzato per i contatti. Sincronizzato con l'ecosistema Prima Nota<sup>®</sup>.</p>
+                        </div>
+                    </div>
+
+                    <div class="contacts-toolbar glass-panel p-4 mb-4">
+                        <div class="search-wrap">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="contact-search" placeholder="Cerca nome, azienda o telefono..." onkeyup="appRubrica.filterContacts()">
+                        </div>
+                        <div class="filter-actions" style="margin-left: 15px;">
+                            <select id="contact-filter-group" onchange="appRubrica.filterContacts()" class="filter-select">
+                                <option value="all">Tutti i gruppi</option>
+                                <option value="clienti">Clienti</option>
+                                <option value="fornitori">Fornitori</option>
+                                <option value="personale">Personale</option>
+                            </select>
+                        </div>
+                        
+                        <div class="advanced-actions" style="display: flex; gap: 8px; margin-left: auto; border-left: 1px solid var(--glass-border); padding-left: 15px;">
+                            <button class="btn btn-icon" title="Importa Contatti (CSV/vCard)"><i data-lucide="upload-cloud"></i></button>
+                            <button class="btn btn-icon" title="Esporta Rubrica (CSV)"><i data-lucide="download-cloud"></i></button>
+                            <button class="btn btn-icon" title="Stampa Elenco"><i data-lucide="printer"></i></button>
+                            <button class="btn btn-primary" onclick="appRubrica.openContactModal()"><i data-lucide="user-plus"></i> Nuovo Contatto</button>
+                        </div>
+                    </div>
+
+                    <div class="contacts-grid" id="contacts-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- View: Invoices (Fatturazione PRO) -->
+                <div id="view-invoices" class="view-section">
+                    
+                    <!-- Fatturazione Header Banner -->
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(0, 0, 0, 0.4));">
+                        <div style="position:relative;">
+                            <img src="logo-fatture.png" alt="Fatturazione App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);">
+                            <span style="position:absolute; bottom:-5px; right:-5px; background:var(--primary); color:white; font-size:9px; padding:2px 6px; border-radius:10px; font-weight:bold;">SYNC</span>
+                        </div>
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Fatturazione Elettronica<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Crea flussi di entrata invisibili. Le tue fatture, automatizzate e connesse."</p>
+                        </div>
+                        <div style="margin-left: auto; display: flex; gap: 10px;">
+                            <button class="btn btn-outline" title="Interroga Cassetto Fiscale (Simulazione)"><i data-lucide="landmark"></i> Cassetto Fiscale SDI</button>
+                            <button class="btn btn-primary" onclick="appFatture.openNewInvoiceModal()"><i data-lucide="plus-circle"></i> Emetti Fattura</button>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Stats -->
+                    <div class="grid-cards" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+                        <div class="stat-card glass-panel" style="padding: 15px;">
+                            <div class="stat-info">
+                                <span>Fatturato Mese</span>
+                                <h4 style="color:var(--success); font-size:18px;">€ <span id="inv-total-month">0.00</span></h4>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel" style="padding: 15px;">
+                            <div class="stat-info">
+                                <span>In Attesa di Pagamento</span>
+                                <h4 style="color:var(--warning); font-size:18px;">€ <span id="inv-pending">0.00</span></h4>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel" style="padding: 15px;">
+                            <div class="stat-info">
+                                <span>Scadute / Da Sollecitare</span>
+                                <h4 style="color:var(--danger); font-size:18px;">€ <span id="inv-overdue">0.00</span></h4>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel" style="padding: 15px;">
+                            <div class="stat-info">
+                                <span>Documenti Emessi</span>
+                                <h4 style="font-size:18px;"><span id="inv-count">0</span></h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Notice Panel -->
+                    <div id="invoice-alerts-panel" style="display:none; margin-bottom: 20px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 12px; padding: 15px 20px;">
+                        <!-- JS injected alerts -->
+                    </div>
+
+                    <!-- Chart.js Advanced Graphics -->
+                    <div class="grid-cards" style="grid-template-columns: 2fr 1fr; margin-bottom: 20px; gap: 20px;">
+                        <div class="glass-panel p-4">
+                            <h3 style="font-size: 16px; margin-bottom: 15px;">Andamento Fatturato (Ultimi 6 Mesi)</h3>
+                            <canvas id="invoiceTrendChart" height="100"></canvas>
+                        </div>
+                        <div class="glass-panel p-4">
+                            <h3 style="font-size: 16px; margin-bottom: 15px;">Stato Incassi</h3>
+                            <canvas id="invoiceStatusChart" height="200"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-4">
+                        <div class="contacts-toolbar" style="margin-bottom: 15px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;">
+                            <h3 style="font-size:16px;">Cronologia Documenti</h3>
+                            <div class="search-wrap" style="max-width:300px;">
+                                <i data-lucide="search"></i>
+                                <input type="text" placeholder="Ricerca n. o cliente...">
+                            </div>
+                        </div>
+                        
+                        <div id="invoices-list" style="color: var(--text-muted); font-size: 13px;">
+                            <div style="text-align: center; padding: 30px;">
+                                <i data-lucide="file-x" style="width:40px; height:40px; opacity:0.3; margin-bottom:10px;"></i>
+                                <p>Nessuna fattura emessa. Il registro è vuoto.</p>
+                            </div>
+                            <!-- Invoices will be pushed here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Modulo Preventivi -->
+                <div id="view-quotes" class="view-section">
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(0, 0, 0, 0.4));">
+                        <div style="position:relative;">
+                            <img src="logo-preventivi.png" alt="Preventivi App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);">
+                        </div>
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Preventivi PRO<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Crea offerte irresistibili e trasformale in fatture con un click."</p>
+                        </div>
+                        <div style="margin-left: auto; display: flex; gap: 10px;">
+                            <button class="btn btn-primary" onclick="appQuotes.openQuoteModal()"><i data-lucide="plus-circle"></i> Nuovo Preventivo</button>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel p-4">
+                        <div class="contacts-toolbar" style="margin-bottom: 15px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;">
+                            <h3 style="font-size:16px;">Cronologia Preventivi</h3>
+                            <div class="search-wrap" style="max-width:300px; margin-left:20px;">
+                                <i data-lucide="search"></i>
+                                <input type="text" id="quote-search" placeholder="Cerca...">
+                            </div>
+                        </div>
+                        
+                        <div id="quotes-list" style="color: var(--text-muted); font-size: 13px;">
+                            <!-- Caricato da JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Modulo Magazzino -->
+                <div id="view-inventory" class="view-section">
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0, 0, 0, 0.4));">
+                        <div style="position:relative;">
+                            <img src="logo-magazzino.png" alt="Magazzino App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+                            <span style="position:absolute; bottom:-5px; right:-5px; background:var(--primary); color:white; font-size:9px; padding:2px 6px; border-radius:10px; font-weight:bold;">SYNC</span>
+                        </div>
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Magazzino Intelligente<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Analisi perdite, scadenze, categorie e gestione avanzata stock."</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <!-- Colonna Sinistra: Categorie -->
+                        <div class="glass-panel p-4" style="flex: 0 0 280px; display: flex; flex-direction: column;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); padding-bottom:10px; margin-bottom:15px;">
+                                <h3 style="font-size:16px; margin:0;"><i data-lucide="layers"></i> Categorie</h3>
+                                <button class="btn btn-icon" title="Nuova Categoria" onclick="appInventory.openCategoryModal()" style="color:#10b981;"><i data-lucide="plus-circle"></i></button>
+                            </div>
+                            <div id="inventory-categories-list" style="display:flex; flex-direction:column; gap:8px;">
+                                <!-- Populate via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Colonna Destra: Prodotti e Allarmi -->
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <!-- Pannello Allarmi Scadenze / Deterioramento -->
+                            <div id="inventory-alerts-panel" class="glass-panel p-4" style="display:none; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3);">
+                                <!-- Populated dynamically -->
+                            </div>
+
+                            <div class="contacts-toolbar glass-panel p-4">
+                                <div class="search-wrap">
+                                    <i data-lucide="search"></i>
+                                    <input type="text" id="invt-search" placeholder="Cerca Articolo..." onkeyup="appInventory.filterProducts()">
+                                </div>
+                                <div class="filter-actions" style="margin-left: 15px;">
+                                    <select id="invt-filter-supplier" onchange="appInventory.filterProducts()" class="filter-select" style="background: rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); color:#fff; padding:8px 15px; border-radius:8px;">
+                                        <option value="">Filtra Fornitore...</option>
+                                        <!-- Populate via JS -->
+                                    </select>
+                                </div>
+                                <div class="advanced-actions" style="display: flex; gap: 8px; margin-left: auto; border-left: 1px solid var(--glass-border); padding-left: 15px;">
+                                    <button class="btn btn-icon" title="Analisi Perdite" onclick="appInventory.showLossAnalysis()"><i data-lucide="trending-down" style="color:#ef4444;"></i></button>
+                                    <button class="btn btn-icon" title="Stampa Giacenze" onclick="window.print()"><i data-lucide="printer"></i></button>
+                                    <button class="btn btn-primary" onclick="appInventory.openProductModal()"><i data-lucide="package-plus"></i> Nuovo Articolo</button>
+                                </div>
+                            </div>
+
+                            <div id="selected-cat-title" style="font-size: 18px; font-weight: 500; font-family: 'Outfit'; border-bottom: 2px solid var(--glass-border); padding-bottom: 5px;">Tutti gli Articoli</div>
+                            
+                            <div class="grid-cards" id="inventory-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Modulo Agenda Condivisa -->
+                <div id="view-calendar" class="view-section">
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(0, 0, 0, 0.4));">
+                        <img src="logo-agenda.png" alt="Agenda App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);">
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Agenda Condivisa<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Il tuo tempo è denaro. Pianifica incassi, scadenze e videochiamate con i clienti."</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 20px; height: calc(100vh - 220px);">
+                        <!-- Sidebar Eventi -->
+                        <div class="glass-panel" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; padding: 20px;">
+                            <h3 style="margin-top: 0; margin-bottom: 20px; color: #fff; font-family: 'Outfit', sans-serif;">Eventi Imminenti</h3>
+                            <div id="calendar-upcoming" style="flex: 1; overflow-y: auto; padding-right:5px;">
+                                <!-- Eventi popolati da JS -->
+                            </div>
+                            <button class="btn btn-primary mt-4 w-100" style="background: #ec4899; min-height:50px;" onclick="appCalendar.openEventModal()"><i data-lucide="plus-circle"></i> Nuovo Appuntamento</button>
+                        </div>
+                        
+                        <!-- Calendario Grid Principale -->
+                        <div class="glass-panel" style="flex: 3; display: flex; flex-direction: column; padding: 20px; overflow: hidden;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <button class="btn btn-icon" onclick="appCalendar.prevMonth()"><i data-lucide="chevron-left"></i></button>
+                                <h3 id="calendar-month-year" style="margin: 0; font-family: 'Outfit'; font-size: 24px;"></h3>
+                                <button class="btn btn-icon" onclick="appCalendar.nextMonth()"><i data-lucide="chevron-right"></i></button>
+                            </div>
+                            
+                            <!-- Header Giorni -->
+                            <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: bold; margin-bottom: 15px; color: var(--text-muted); font-size: 14px;">
+                                <div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div>
+                            </div>
+                            
+                            <!-- Griglia Giorni Calendario -->
+                            <div id="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; flex: 1; min-height: 0; overflow-y: auto; align-content: start;">
+                                <!-- Colonne create da JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Modulo Punto Cassa (POS) -->
+                <div id="view-pos" class="view-section">
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(0, 0, 0, 0.4));">
+                        <div style="position:relative;">
+                            <img src="logo-cassa.png" alt="Cassa App Logo" style="width: 70px; height: 70px; border-radius: 16px; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); object-fit: cover; background: #222;">
+                            <span style="position:absolute; bottom:-5px; right:-5px; background:var(--primary); color:white; font-size:9px; padding:2px 6px; border-radius:10px; font-weight:bold;">SYNC</span>
+                        </div>
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #fff;">Punto Cassa Veloce<sup>®</sup></h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Operazioni istantanee, incassi fluidi. Il tuo POS touch, ovunque."</p>
+                        </div>
+                        <div style="margin-left: auto; display: flex; gap: 10px;">
+                            <button class="btn btn-outline" style="border-color: #60a5fa; color: #93c5fd;" onclick="appPos.printXReport()"><i data-lucide="file-text"></i> Lettura Corrispettivo (X)</button>
+                            <button class="btn btn-outline" style="border-color: #f59e0b; color: #fcd34d;" onclick="appPos.printZReport()"><i data-lucide="lock"></i> Chiusura Giornaliera (Z)</button>
+                            <button class="btn btn-outline" style="border-color: rgba(239,68,68,0.5); color: #fca5a5;"><i data-lucide="power"></i> Fine Turno</button>
+                        </div>
+                    </div>
+
+                    <!-- Layout POS a due colonne: Articoli (sx) e Scontrino/Tastierino (dx) -->
+                    <div style="display: flex; gap: 20px; height: calc(100vh - 220px);">
+                        
+                        <!-- Colonna Sinistra (Catalogo Touch) -->
+                        <div class="glass-panel" style="flex: 2; display: flex; flex-direction: column; overflow: hidden; padding: 15px;">
+                            <div class="contacts-toolbar" style="margin-bottom: 15px;">
+                                <div class="search-wrap" style="flex: 1;">
+                                    <i data-lucide="search"></i>
+                                    <input type="text" id="pos-search" placeholder="Cerca articolo, SKU, o usa Lettore Barcode..." style="font-size: 16px;">
+                                </div>
+                            </div>
+                            <!-- Filtri Categorie Orizzontali (Stile POS Veloce) -->
+                            <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; margin-bottom:15px; border-bottom:1px solid var(--glass-border);" id="pos-cat-filters">
+                                <button class="app-pill bg-purple" style="min-width:max-content; border:none; cursor:pointer;" onclick="appPos.filterTouchCat(null)">TUTTO</button>
+                                <!-- Populate via JS -->
+                            </div>
+                            
+                            <!-- Griglia Articoli Touch -->
+                            <div id="pos-touch-grid" style="flex:1; overflow-y:auto; display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:15px; align-content: start;">
+                                <!-- Populate via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Colonna Destra (Scontrino Corrente) -->
+                        <div class="glass-panel" style="flex: 1; display: flex; flex-direction: column; min-width: 350px;">
+                            <!-- Header Scontrino -->
+                            <div style="padding: 15px; border-bottom: 2px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); border-radius: 16px 16px 0 0;">
+                                <h3 style="margin:0; font-family:'Courier New', monospace;"><i data-lucide="receipt"></i> Conto #<span id="pos-curr-id">0001</span></h3>
+                                <button class="btn-icon" style="color:var(--danger);" onclick="appPos.clearTicket()"><i data-lucide="trash-2"></i> Annulla</button>
+                            </div>
+
+                            <!-- Scontrino Parlante -->
+                            <div style="padding: 10px 15px; background: rgba(255,255,255,0.05); border-bottom: 1px solid var(--glass-border); display: flex; gap: 10px; align-items: center;">
+                                <i data-lucide="user-check" style="color: var(--text-muted); width: 18px;"></i>
+                                <input type="text" id="pos-fiscal-code" placeholder="Codice Fiscale o P.IVA (Scontrino Parlante)" style="flex:1; background: transparent; border: none; color: #fff; font-size: 14px; outline: none; font-family: 'Courier New', monospace;">
+                            </div>
+
+                            <!-- Lista Articoli Scontrino -->
+                            <div id="pos-ticket-lines" style="flex: 1; overflow-y: auto; padding: 10px; font-family: 'Courier New', monospace; font-size:14px;">
+                                <div style="text-align:center; padding: 40px 10px; color:var(--text-muted); opacity: 0.5;">
+                                    <i data-lucide="shopping-cart" style="width:40px; height:40px; margin-bottom:10px;"></i>
+                                    <p>Scontrino Vuoto</p>
+                                </div>
+                            </div>
+
+                            <!-- Tastierino Alfanumerico (POS Numpad) -->
+                            <div style="background: rgba(0,0,0,0.4); padding: 10px;">
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('7')">7</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('8')">8</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('9')">9</button>
+                                    <button class="btn btn-outline pos-key bg-purple" style="font-weight:bold; color:#fff;" onclick="appPos.keypadAction('QTY')">QTA</button>
+                                    
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('4')">4</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('5')">5</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('6')">6</button>
+                                    <button class="btn btn-outline pos-key bg-blue" style="font-weight:bold; color:#fff;" onclick="appPos.keypadAction('DISC')">SCONTO</button>
+                                    
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('1')">1</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('2')">2</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('3')">3</button>
+                                    <button class="btn btn-outline pos-key" style="color:var(--danger);" onclick="appPos.keypadAction('C')">C</button>
+                                    
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('0')">0</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('00')">00</button>
+                                    <button class="btn btn-outline pos-key" onclick="appPos.keypadInput('.')">.</button>
+                                    <button class="btn btn-outline pos-key bg-green" style="font-weight:bold; color:#fff;" onclick="appPos.keypadAction('ENTER')">INVIO</button>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-top:5px; font-size:12px; color:var(--text-muted);">
+                                    <span>Input: <strong id="pos-keypad-display" style="color:#fff;"></strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Totali e Pagamento -->
+                            <div style="background: rgba(0,0,0,0.6); border-radius: 0 0 16px 16px; padding: 15px; border-top: 2px dashed rgba(255,255,255,0.1);">
+                                <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:16px; margin-bottom: 5px;">
+                                    <span>Subtotale:</span>
+                                    <span>€ <span id="pos-subtotal">0.00</span></span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:28px; color:var(--success); margin-bottom:15px;">
+                                    <span>TOTALE:</span>
+                                    <span>€ <span id="pos-total">0.00</span></span>
+                                </div>
+
+                                <!-- Pulsanti Pagamento Rapido -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom:10px;">
+                                    <button class="btn btn-outline" style="height: 60px; font-size:14px; flex-direction:column; justify-content:center; gap:4px;" onclick="appPos.payTicket('Contanti')">
+                                        <i data-lucide="banknote" style="color:var(--success);"></i> Contanti
+                                    </button>
+                                    <button class="btn btn-outline" style="height: 60px; font-size:14px; flex-direction:column; justify-content:center; gap:4px;" onclick="appPos.payTicket('Bancomat')">
+                                        <i data-lucide="credit-card" style="color:#60a5fa;"></i> Carta
+                                    </button>
+                                    <button class="btn btn-outline" style="height: 60px; font-size:14px; flex-direction:column; justify-content:center; gap:4px; border-color:var(--text-muted); color:#fff;" onclick="appPos.payTicket('Preconto')">
+                                        <i data-lucide="printer" style="color:#fff;"></i> Preconto
+                                    </button>
+                                </div>
+                                <button class="btn btn-primary w-100" style="height: 50px; font-size: 16px; font-weight:bold; background:var(--danger);" onclick="appPos.openAdvancedPay()">
+                                    Pagamento Misto / Fattura Rapida
+                                </button>
+                                <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:8px;">
+                                    <i data-lucide="lock" style="width:10px; display:inline-block;"></i> RT Omologato Ag. Entrate
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Modulo Cassetto Fiscale e G.d.F -->
+                <div id="view-fiscal" class="view-section">
+                    <div class="glass-panel" style="display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0, 0, 0, 0.6)); border-left: 4px solid #10b981;">
+                        <i data-lucide="shield-check" style="width:50px; height:50px; color:#10b981;"></i>
+                        <div>
+                            <h2 style="font-family: 'Outfit'; margin-bottom: 4px; color: #10b981;">Registro Fiscale Inalterabile (RT)</h2>
+                            <p style="color: var(--text-muted); font-size: 14px;">"Area ad accesso limitato. Le modifiche non sono ammesse in conformità con il D.Lgs. 127/2015."</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap:20px;">
+                        <div class="glass-panel" style="flex:1; padding: 25px; border-color: rgba(16, 185, 129, 0.3);">
+                            <h3 style="color:#fff; margin-bottom:20px;"><i data-lucide="book-lock" style="margin-right:8px;"></i>Registro Chiusure Fiscali (Z)</h3>
+                            <p style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">
+                                I dati presenti in questa schermata rappresentano copie conformi delle Trasmissioni Telematiche inviate all'Agenzia delle Entrate. Questo file di log **non può essere manomesso, alterato o eliminato dall'utente**.
+                            </p>
+                            
+                            <div id="fiscal-z-logs" style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size:13px; max-height: 400px; overflow-y:auto; border: 1px solid var(--glass-border);">
+                                <div style="color:var(--text-muted);">In attesa della prima chiusura fiscale...</div>
+                            </div>
+
+                        </div>
+                        <div class="glass-panel" style="flex:1; padding: 25px; border-color: rgba(16, 185, 129, 0.3);">
+                            <h3 style="color:#fff; margin-bottom:20px;"><i data-lucide="building-2" style="margin-right:8px;"></i>Status Omologazione RT</h3>
+                            
+                            <div class="input-group mb-3">
+                                <label>Matricola Dispositivo / Server</label>
+                                <input type="text" value="IT-RT-0000X973Y" readonly style="background: rgba(0,0,0,0.3); color: var(--text-muted); cursor: not-allowed; border: 1px dashed rgba(255,255,255,0.1);">
+                            </div>
+                            <div class="input-group mb-3">
+                                <label>Stato Invio Telematico</label>
+                                <input type="text" value="CONNESSO e ATTIVO (Porta 443 SSL)" readonly style="background: rgba(16, 185, 129, 0.1); color: #10b981; cursor: not-allowed; border: 1px solid rgba(16, 185, 129, 0.3);">
+                            </div>
+                            <div class="input-group mb-3">
+                                <label>Ultimo Aggiornamento Protocollo API</label>
+                                <input type="text" value="XML 7.0 (Adeguato alle norme vigenti)" readonly style="background: rgba(0,0,0,0.3); color: var(--text-muted); cursor: not-allowed; border: 1px dashed rgba(255,255,255,0.1);">
+                            </div>
+                            
+                            <div style="margin-top: 30px; padding: 15px; border: 1px solid rgba(239, 68, 68, 0.3); border-radius:8px; background: rgba(239, 68, 68, 0.05);">
+                                <h4 style="color:#ef4444; margin-top:0; font-size:14px;"><i data-lucide="alert-triangle" style="width:16px;"></i> Area Controllo Guardia di Finanza</h4>
+                                <p style="font-size:12px; color:var(--text-muted);">L'esportazione DGF/XML massiva può essere richiesta in caso di ispezione. Solo agenti accreditati sono pregati di inserire il Token Master.</p>
+                                <div style="display:flex; gap:10px; margin-top:10px;">
+                                    <input type="password" placeholder="Token Master DGF..." style="flex:1;">
+                                    <button class="btn btn-secondary" onclick="alert('Accesso Negato. Token DGF non valido o non riconosciuto.')" style="background:#ef4444; color:#fff;">Sblocca Esportazione</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Data Flow (Il Core della richiesta) -->
+                <div id="view-data-flow" class="view-section">
+                    <div class="glass-panel p-4 mb-4" style="border-left: 4px solid var(--primary);">
+                        <h3>Architettura di Rete e Permessi</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">
+                            Prima Nota permette alle tue app di comunicare. Decidi qui sotto quali applicazioni possono scambiarsi informazioni automaticamente. Se spegni l'interruttore, i moduli saranno isolati (Sandbox Mode).
+                        </p>
+                    </div>
+
+                    <div class="permissions-grid">
+                        <!-- Module connection rules populated by JS -->
+                        <div class="connection-card glass-panel">
+                            <div class="connection-header">
+                                <div class="app-pill bg-purple"><i data-lucide="users"></i> Rubrica</div>
+                                <div class="arrow-indicator"><i data-lucide="arrow-right"></i></div>
+                                <div class="app-pill bg-blue"><i data-lucide="file-text"></i> Fatturazione</div>
+                            </div>
+                            <div class="connection-body">
+                                <p>Consenti al modulo "Fatturazione" di leggere i nomi dei clienti dalla "Rubrica".</p>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="perm-rubrica-fatture" checked onchange="coreSystem.updatePermission('rubrica', 'fatture', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="connection-card glass-panel">
+                            <div class="connection-header">
+                                <div class="app-pill bg-green"><i data-lucide="shopping-cart"></i> Magazzino</div>
+                                <div class="arrow-indicator"><i data-lucide="arrow-left-right"></i></div>
+                                <div class="app-pill bg-orange"><i data-lucide="monitor"></i> Registratore Cassa</div>
+                            </div>
+                            <div class="connection-body">
+                                <p>Sincronizzazione bidirezionale: scala le giacenze in tempo reale quando c'è una vendita.</p>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="perm-magazzino-cassa" checked onchange="coreSystem.updatePermission('magazzino', 'cassa', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="console-log glass-panel mt-4">
+                        <div class="console-header">
+                            <i data-lucide="terminal"></i> Event Bus Log (Sistema Centrale)
+                            <button class="btn btn-icon btn-small ml-auto" onclick="document.getElementById('sys-logs').innerHTML = ''"><i data-lucide="trash"></i></button>
+                        </div>
+                        <div class="console-body" id="sys-logs">
+                            <div class="log-entry system">[SYSTEM] Prima Nota Core Inizializzato.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Modules Sandbox Simulator -->
+                <div id="view-modules" class="view-section">
+                    <div class="glass-panel p-4 mb-4" style="border-left: 4px solid var(--primary);">
+                        <h3>Hub Moduli & Dev Sandbox</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">
+                            Ogni modulo di Prima Nota gira all'interno della propria sandbox isolata. Di seguito l'elenco dei microservizi frontend attualmente in esecuzione in memoria e collegati al Prima Nota Core System (Event Bus).
+                        </p>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                        
+                        <!-- Prima Nota Core -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header bg-primary" style="background:#3b82f6; color:#fff; border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="wallet"></i> App: Prima Nota</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Modulo centrale che registra e traccia entrate, uscite e flussi di cassa in tempo reale.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='primanota']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Rubrica -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header bg-purple" style="border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="users"></i> App: Rubrica</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Publisher principale per entità [Cliente]. Trasmette i contatti in broadcast sull'Event Bus.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='contacts']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                        <!-- Fatturazione -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header bg-blue" style="border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="file-text"></i> App: Fatturazione</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Subscriber. Ascolta Rubrica per intestazioni e Magazzino decurtando le giacenze (se policy lo consente).</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='invoices']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                        <!-- Magazzino -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header bg-green" style="border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="package"></i> App: Magazzino</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Publisher/Subscriber. Comunica con Punto Cassa e Fatturazione per sincronizzare le rese/scorte.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='inventory']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                        <!-- Punto Cassa -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header bg-orange" style="border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="monitor"></i> App: Punto Cassa (POS)</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Subscriber real-time dell'Inventario. Invia flussi di chiusura all'Area Fiscale tramite Core.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='pos']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                        <!-- Preventivi -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header bg-yellow" style="border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0; color:#000;"><i data-lucide="calculator"></i> App: Preventivi PRO</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">App isolata. Invia draft di conversione verso Fatturazione in caso di accettazione del cliente.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='quotes']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                        <!-- Agenda Condivisa -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header" style="background:#ec4899; color:#fff; border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="calendar"></i> App: Agenda</h4>
+                                <span class="badge" style="background:#10b981;">Running</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Modulo Scheduling. Cerca entità su stringhe Rubrica per collegare utenti agli appuntamenti.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='calendar']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                        <!-- Area Fiscale RT -->
+                        <div class="module-container glass-panel">
+                            <div class="module-header" style="background:#10b981; color:#fff; border-radius: 16px 16px 0 0; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+                                <h4 style="margin:0;"><i data-lucide="shield-check"></i> Area Fiscale (RT)</h4>
+                                <span class="badge" style="background:#10b981;">Running (Locked)</span>
+                            </div>
+                            <div class="module-body" style="padding:15px;">
+                                <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Cassetto WORM (Write Once Read Many). Non accetta modifiche, riceve e blinda le Chiusure Z.</p>
+                                <button class="btn btn-outline w-100" onclick="document.querySelector(`.nav-item[data-target='fiscal']`).click()">Apri Modulo</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- View: Settings (Profilo Aziendale e Piattaforma) -->
+                <div id="view-settings" class="view-section">
+                    <div class="glass-panel p-4 mb-4" style="border-left: 4px solid var(--accent);">
+                        <h3>Profilo Aziendale (Dati Emittente)</h3>
+                        <p style="color: var(--text-muted); font-size: 14px;">Inserisci qui i dati della tua azienda. Verranno utilizzati automaticamente come intestazione per tutte le fatture e i documenti generati dai moduli di Prima Nota<sup>®</sup>.</p>
+                    </div>
+
+                    <div class="glass-panel p-4">
+                        <form id="company-profile-form" onsubmit="appSettings.saveCompanyProfile(event)">
+                            <div class="profile-upload-section" style="border-bottom:none; margin-bottom:0;">
+                                <div class="avatar-preview" id="company-logo-preview" style="border-radius:12px; width:100px; height:100px;">
+                                    <i data-lucide="image"></i>
+                                </div>
+                                <div class="upload-controls">
+                                    <label class="btn btn-outline btn-small" style="cursor:pointer;">
+                                        <i data-lucide="upload"></i> Carica Logo Aziendale
+                                        <input type="file" id="company-logo-input" accept="image/*" style="display:none;" onchange="appSettings.handleLogoUpload(event)">
+                                    </label>
+                                    <button type="button" class="text-btn danger" onclick="appSettings.removeLogo()">Rimuovi Logo</button>
+                                </div>
+                            </div>
+
+                            <hr style="border:0; border-top:1px solid var(--glass-border); margin: 20px 0;">
+
+                            <div class="form-grid">
+                                <div class="input-group full-width">
+                                    <label>Ragione Sociale / Nome e Cognome *</label>
+                                    <input type="text" id="comp-name" required placeholder="La Tua Azienda Srl">
+                                </div>
+                                <div class="input-group">
+                                    <label>Partita IVA *</label>
+                                    <input type="text" id="comp-vat" required placeholder="IT...">
+                                </div>
+                                <div class="input-group">
+                                    <label>Codice Fiscale</label>
+                                    <input type="text" id="comp-cf" placeholder="Facoltativo se uguale alla P.IVA">
+                                </div>
+                                <div class="input-group full-width">
+                                    <label>Sede Legale (Indirizzo Completo) *</label>
+                                    <input type="text" id="comp-address" required placeholder="Via delle Industrie 1, 00100 Roma (RM)">
+                                </div>
+                                <div class="input-group">
+                                    <label>Codice Destinatario SDI</label>
+                                    <input type="text" id="comp-sdi" placeholder="Es. M5UXCR1 (o PEC)">
+                                </div>
+                                <div class="input-group">
+                                    <label>Regime Fiscale</label>
+                                    <select id="comp-regime">
+                                        <option value="ordinario">Ordinario</option>
+                                        <option value="forfettario">Forfettario (L. 190/2014)</option>
+                                        <option value="minimi">Minimi</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions mt-4">
+                                <button type="button" class="btn btn-outline" onclick="appSettings.clearProfile()">Cancella Dati</button>
+                                <button type="submit" class="btn btn-primary"><i data-lucide="save"></i> Salva Profilo Aziendale</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Contact Modal Form -->
+    <div id="contact-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3 id="contact-modal-title">Nuova Scheda Anagrafica</h3>
+                <button class="btn-icon" onclick="appRubrica.closeContactModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="contact-form" onsubmit="appRubrica.saveContact(event)">
+                    <input type="hidden" id="c-id">
+                    
+                    <div class="profile-upload-section">
+                        <div class="avatar-preview" id="c-avatar-preview">
+                            <i data-lucide="camera"></i>
+                        </div>
+                        <div class="upload-controls">
+                            <label class="btn btn-outline btn-small" style="cursor:pointer;">
+                                <i data-lucide="upload"></i> Carica Foto
+                                <input type="file" id="c-avatar" accept="image/*" style="display:none;" onchange="appRubrica.handleAvatarUpload(event)">
+                            </label>
+                            <button type="button" class="text-btn danger" onclick="appRubrica.removeAvatar()">Rimuovi</button>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Nome Completo / Ragione Sociale *</label>
+                            <input type="text" id="c-name" required placeholder="Es. Mario Rossi">
+                        </div>
+                        <div class="input-group">
+                            <label>Gruppo</label>
+                            <select id="c-group">
+                                <option value="personale">Personale</option>
+                                <option value="clienti">Clienti</option>
+                                <option value="fornitori">Fornitori</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Telefono Principale *</label>
+                            <input type="tel" id="c-phone" required placeholder="+39 333 1234567">
+                        </div>
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" id="c-email" placeholder="mario@email.com">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Indirizzo Completo</label>
+                            <input type="text" id="c-address" placeholder="Via Roma 1, Milano">
+                        </div>
+                    </div>
+
+                    <div class="social-links-section mt-4">
+                        <label>Servizi di Messaggistica Rapida</label>
+                        <div class="social-inputs">
+                            <div class="social-input">
+                                <i data-lucide="message-circle" style="color: #25D366;"></i>
+                                <input type="text" id="c-whatsapp" placeholder="Numero WhatsApp">
+                            </div>
+                            <div class="social-input">
+                                <i data-lucide="send" style="color: #0088cc;"></i>
+                                <input type="text" id="c-telegram" placeholder="Username Telegram (@nome)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-outline" onclick="appRubrica.closeContactModal()">Annulla</button>
+                        <button type="submit" class="btn btn-primary"><i data-lucide="save"></i> Salva Contatto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Invoice Modal Form -->
+    <div id="invoice-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Nuova Fattura Elettronica</h3>
+                <button class="btn-icon" onclick="appFatture.closeModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="invoice-form" onsubmit="appFatture.saveInvoice(event)">
+                    
+                    <div class="glass-panel p-4 mb-4" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3);">
+                        <label style="color: #c4b5fd; font-weight:bold; margin-bottom:8px; display:block;"><i data-lucide="zap" style="width:16px;"></i> Importa Cliente da Rubrica Intelligente</label>
+                        <select id="inv-client-select" class="w-100" style="background: rgba(0,0,0,0.4);" onchange="appFatture.autoFillClientData()">
+                            <option value="">-- Seleziona (Nessun cliente) --</option>
+                            <!-- Popolato dal Core Event JS -->
+                        </select>
+                        <p style="font-size:11px; color:var(--text-muted); margin-top:6px;">Se il sistema "Flusso Dati" è attivo, i clienti della Rubrica appariranno qui automaticamente.</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Numero Doc.</label>
+                            <input type="text" id="inv-number" value="FATT-001" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Data Emissione</label>
+                            <input type="date" id="inv-date" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Data Scadenza Pagamento</label>
+                            <input type="date" id="inv-due-date" required>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label>Intestatario Manuale (Se non importato)</label>
+                            <input type="text" id="inv-client-name" required placeholder="Ragione Sociale o Nome">
+                        </div>
+                        <div class="input-group">
+                            <label>Partita IVA / C.F.</label>
+                            <input type="text" id="inv-vat" placeholder="IT0123456789">
+                        </div>
+                        <div class="input-group">
+                            <label>Indirizzo di Fatturazione</label>
+                            <input type="text" id="inv-address">
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 10px; border-bottom: 1px solid var(--glass-border); padding-bottom:5px;">Dettaglio Importi</h4>
+                    <div class="form-grid">
+                        <div class="input-group full-width" style="margin-bottom: 15px;">
+                            <label style="color:var(--accent); font-weight:bold;"><i data-lucide="package"></i> Importa Voce da Magazzino (Sync)</label>
+                            <select id="inv-inv-select" onchange="appFatture.fillFromInventory()">
+                                <option value="">-- Seleziona Articolo dal Catalogo --</option>
+                            </select>
+                            <p style="font-size:11px; margin-top:5px; color:var(--text-muted);">Selezionando un articolo da qui, la giacenza verrà scalata al momento dell'emissione della fattura.</p>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Descrizione Prestazione/Prodotto</label>
+                            <input type="text" id="inv-desc" required placeholder="Consulenza informatica mensile">
+                        </div>
+                        <div class="input-group">
+                            <label>Imponibile (€)</label>
+                            <input type="number" step="0.01" id="inv-amount" required value="0.00" onkeyup="appFatture.calcTotal()">
+                        </div>
+                        <div class="input-group">
+                            <label>Aliquota IVA (%)</label>
+                            <select id="inv-tax" onchange="appFatture.calcTotal()">
+                                <option value="22">22%</option>
+                                <option value="10">10%</option>
+                                <option value="4">4%</option>
+                                <option value="0">0% (Esente)</option>
+                            </select>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Stato Iniziale</label>
+                            <select id="inv-status">
+                                <option value="pending">In Attesa di Pagamento</option>
+                                <option value="paid">Già Saldata</option>
+                                <option value="suspended">Sospesa / Contestata</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel mt-4 p-4" style="text-align: right; background: rgba(0,0,0,0.2);">
+                        <p style="color:var(--text-muted); font-size:12px;">Imposta Calcolata: € <span id="inv-tax-amount">0.00</span></p>
+                        <h3 style="color: var(--success); font-family:'Outfit'; font-size:24px;">Totale: € <span id="inv-total-final">0.00</span></h3>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-outline" onclick="appFatture.closeModal()">Annulla</button>
+                        <button type="submit" class="btn btn-primary" style="background:var(--accent);"><i data-lucide="file-check-2"></i> Emetti Fattura</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Modal Form -->
+    <div id="category-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="category-modal-title">Gestione Categoria</h3>
+                <button class="btn-icon" onclick="appInventory.closeCategoryModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="category-form" onsubmit="appInventory.saveCategory(event)">
+                    <input type="hidden" id="cat-old-name">
+                    <div class="input-group full-width">
+                        <label>Nome Categoria (es. Alimentari, Elettronica, Pelati, Mangimi)</label>
+                        <input type="text" id="cat-name" required placeholder="Nome categoria...">
+                    </div>
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-outline" onclick="appInventory.closeCategoryModal()">Annulla</button>
+                        <button type="submit" class="btn btn-primary" style="background:#10b981;">Salva Categoria</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Modal Form -->
+    <div id="product-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3 id="product-modal-title">Nuovo Articolo / Sottocategoria</h3>
+                <button class="btn-icon" onclick="appInventory.closeProductModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="product-form" onsubmit="appInventory.saveProduct(event)">
+                    <input type="hidden" id="p-id">
+                    
+                    <div class="form-grid">
+                        <div class="input-group full-width">
+                            <label>Nome Articolo (Sottocategoria/Prodotto) *</label>
+                            <input type="text" id="p-name" required placeholder="Es. Pomodori Pelati Mutti">
+                        </div>
+                        <div class="input-group">
+                            <label>Categoria Madre</label>
+                            <select id="p-cat" required>
+                                <!-- Popolato dalla lista categorie -->
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Formato / Unità Misura</label>
+                            <select id="p-format">
+                                <option value="pezzi">Pezzi (Pz)</option>
+                                <option value="kg">Chilogrammi (Kg)</option>
+                                <option value="litri">Litri (L)</option>
+                                <option value="cartone">Cartone</option>
+                                <option value="pedana">Pedana / Bancale</option>
+                                <option value="pellet">Sacco Pellet</option>
+                                <option value="fresco">Fresco sfuso</option>
+                                <option value="gelo">Gelo / Surgelato</option>
+                                <option value="ore">Ore / Servizi</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Fornitore (Anagrafica)</label>
+                            <select id="p-supplier">
+                                <option value="">Nessuno / Autoproduzione</option>
+                                <!-- Popolato dai Fornitori in Rubrica -->
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Data di Scadenza (Opzionale)</label>
+                            <input type="date" id="p-expiry">
+                        </div>
+                        <div class="input-group">
+                            <label>Prezzo Acquisto (€)</label>
+                            <input type="number" step="0.01" id="p-cost" value="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Prezzo Vendita Suggerito (€) *</label>
+                            <input type="number" step="0.01" id="p-price" required value="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Giacenza Attuale *</label>
+                            <input type="number" step="1" id="p-qty" required value="0">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Stato Qualità Merce</label>
+                            <select id="p-status">
+                                <option value="ok">Integrale / Ottimo</option>
+                                <option value="deteriorated">Deteriorata / Da Rendere / Scarto</option>
+                                <option value="expired">Scaduta (Non vendibile)</option>
+                            </select>
+                            <p style="font-size:11px; margin-top:5px; color:var(--text-muted);">Segnala difetti o resi al fornitore in analisi perdite.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-outline" onclick="appInventory.closeProductModal()">Annulla</button>
+                        <button type="submit" class="btn btn-primary" style="background:#10b981;"><i data-lucide="save"></i> Salva a Catalogo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quote (Preventivi) Modal Form -->
+    <div id="quote-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Nuovo Preventivo</h3>
+                <button class="btn-icon" onclick="appQuotes.closeModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="quote-form" onsubmit="appQuotes.saveQuote(event)">
+                    <div class="glass-panel p-4 mb-4" style="background: rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.3);">
+                        <label style="color: #fde047; font-weight:bold; margin-bottom:8px; display:block;"><i data-lucide="users" style="width:16px;"></i> Importa Cliente da Rubrica</label>
+                        <select id="q-client-select" class="w-100" style="background: rgba(0,0,0,0.4);" onchange="appQuotes.autoFillClientData()">
+                            <option value="">-- Seleziona (Nessun cliente) --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Numero Preventivo</label>
+                            <input type="text" id="q-number" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Data Offerta</label>
+                            <input type="date" id="q-date" required>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Azienda / Cliente *</label>
+                            <input type="text" id="q-client-name" required placeholder="Nome cliente">
+                        </div>
+                        
+                        <!-- SIMULATION: Selecting product from Inventory -->
+                        <div class="input-group full-width" style="margin-top: 15px;">
+                            <label style="color:var(--accent); font-weight:bold;"><i data-lucide="package"></i> Importa Voce da Magazzino (Sync)</label>
+                            <select id="q-inv-select" onchange="appQuotes.fillFromInventory()">
+                                <option value="">-- Seleziona Articolo dal Catalogo --</option>
+                            </select>
+                            <p style="font-size:11px; margin-top:5px; color:var(--text-muted);">Questa riga caricherà dal Magazzino il nome e il prezzo.</p>
+                        </div>
+
+                        <div class="input-group full-width">
+                            <label>Descrizione / Oggetto</label>
+                            <input type="text" id="q-desc" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Totale Imponibile (€)</label>
+                            <input type="number" step="0.01" id="q-amount" required value="0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-outline" onclick="appQuotes.closeModal()">Annulla</button>
+                        <button type="submit" class="btn btn-primary" style="background:#eab308; color:#000;"><i data-lucide="send"></i> Crea Preventivo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Event Modal -->
+    <div id="event-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Nuovo Appuntamento / Evento</h3>
+                <button class="btn-icon" onclick="appCalendar.closeEventModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="event-form" onsubmit="appCalendar.saveEvent(event)">
+                    <div class="input-group mb-3">
+                        <label>Titolo Evento *</label>
+                        <input type="text" id="ev-title" required placeholder="Es. Riunione con Cliente, Posa in opera">
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="input-group mb-3">
+                            <label>Data *</label>
+                            <input type="date" id="ev-date" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label>Ora</label>
+                            <input type="time" id="ev-time">
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3 focus-border-pink">
+                        <label><i data-lucide="user" style="width:14px;"></i> Cliente/Operatore Collegato</label>
+                        <select id="ev-client" style="background: rgba(0,0,0,0.4);">
+                            <option value="">-- Nessuno --</option>
+                            <!-- Popolato da Rubrica -->
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label>Descrizione / Note</label>
+                        <textarea id="ev-desc" rows="3" placeholder="Dettagli appuntamento..."></textarea>
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <label>Tipologia / Etichetta Colore</label>
+                        <select id="ev-type" required>
+                            <option value="#3b82f6" style="background:#3b82f6; color:#fff;">Blu - Incontro</option>
+                            <option value="#ec4899" style="background:#ec4899; color:#fff;">Rosa - Evento Importante</option>
+                            <option value="#10b981" style="background:#10b981; color:#fff;">Verde - Confermato/Incasso</option>
+                            <option value="#f59e0b" style="background:#f59e0b; color:#fff;">Giallo - Da Verificare</option>
+                            <option value="#ef4444" style="background:#ef4444; color:#fff;">Rosso - Urgente/Scadenza</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-outline" onclick="appCalendar.closeEventModal()">Annulla</button>
+                        <button type="submit" class="btn btn-primary" style="background:#ec4899;"><i data-lucide="calendar-plus"></i> Fissa Appuntamento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden PDF Template for Invoice Generation -->
+    <div id="pdf-invoice-template" style="display:none; background:white; color:black; width: 800px; padding: 40px; font-family: 'Inter', sans-serif;">
+        <div style="display:flex; justify-content:space-between; border-bottom:2px solid #3b82f6; padding-bottom:20px; margin-bottom:20px;">
+            <div style="max-width:300px;">
+                <!-- Company Data Injected Here -->
+                <div id="pdf-comp-logo" style="margin-bottom:10px;"></div>
+                <h2 id="pdf-comp-name" style="margin:0; font-size:20px; color:#1e293b;">La Tua Azienda Srl</h2>
+                <p id="pdf-comp-address" style="margin:4px 0; font-size:12px; color:#475569;"></p>
+                <p style="margin:4px 0; font-size:12px; color:#475569;">P.IVA: <span id="pdf-comp-vat"></span></p>
+                <p style="margin:4px 0; font-size:12px; color:#475569;">Sdi: <span id="pdf-comp-sdi"></span></p>
+            </div>
+            <div style="text-align:right;">
+                <h1 style="margin:0; font-size:36px; color:#3b82f6; font-family: 'Outfit', sans-serif;">FATTURA</h1>
+                <p style="margin:8px 0; font-size:14px;"><strong>No. Documento:</strong> <span id="pdf-inv-num"></span></p>
+                <p style="margin:4px 0; font-size:14px;"><strong>Data Emissione:</strong> <span id="pdf-inv-date"></span></p>
+                <p style="margin:4px 0; font-size:14px; color:#dc2626;"><strong>Scadenza:</strong> <span id="pdf-inv-due"></span></p>
+            </div>
+        </div>
+        <div style="margin-bottom: 30px; background:#f8fafc; padding:15px; border-radius:8px;">
+            <h4 style="margin:0 0 10px 0; color:#64748b; font-size:12px; text-transform:uppercase;">Intestata a:</h4>
+            <h3 id="pdf-client-name" style="margin:0; font-size:18px; color:#0f172a;"></h3>
+        </div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:30px;">
+            <thead>
+                <tr style="background:#e2e8f0;">
+                    <th style="padding:10px; text-align:left; font-size:12px;">Descrizione</th>
+                    <th style="padding:10px; text-align:right; font-size:12px;">Importo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td id="pdf-inv-desc" style="padding:15px 10px; font-size:14px;"></td>
+                    <td id="pdf-inv-amount" style="padding:15px 10px; text-align:right; font-size:14px;"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="display:flex; justify-content:flex-end;">
+            <div style="width:300px; background:#f8fafc; padding:20px; border-radius:8px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; color:#475569;">
+                    <span>Imponibile:</span> <span>€ <span id="pdf-calc-amount"></span></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; color:#475569;" id="pdf-calc-tax-row">
+                    <span>Imposta IVA:</span> <span>€ <span id="pdf-calc-tax"></span></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:15px; padding-top:15px; border-top:1px solid #cbd5e1; font-size:18px; font-weight:bold; color:#0f172a;">
+                    <span>Totale Documento:</span> <span>€ <span id="pdf-calc-total"></span></span>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 50px; text-align:center; color:#94a3b8; font-size:10px; border-top:1px solid #e2e8f0; padding-top:20px;">
+            Documento generato da WebStudio Pro<sup>®</sup> - L'ecosistema componibile intelligente
+        </div>
+    </div>
+
+    <!-- Hidden PDF/Print Template for POS Receipt -->
+    <div id="print-pos-receipt-template" style="display:none; width: 300px; padding: 10px; font-family: 'Courier New', monospace; font-size: 12px; color: black; background: white; margin: 0 auto; text-align: center;">
+        <h2 id="receipt-company" style="margin: 0 0 5px; font-size: 16px; font-family: 'Outfit', sans-serif;">La Tua Azienda Srl</h2>
+        <p style="margin: 0 0 10px; font-size: 10px;">Via Roma 1, Milano (MI)<br>P.IVA: 01234567890</p>
+        
+        <p id="receipt-title" style="margin: 10px 0; font-weight: bold; border-top: 1px dashed black; border-bottom: 1px dashed black; padding: 5px 0;">SCONTRINO FISCALE</p>
+        
+        <div style="text-align: left; margin: 10px 0; font-size: 11px;">
+            <p style="margin: 0;">Data: <span id="receipt-date"></span></p>
+            <p style="margin: 0;">Ora: <span id="receipt-time"></span></p>
+            <p style="margin: 0;">Doc Num: <span id="receipt-num"></span></p>
+            <p id="receipt-cf-line" style="margin: 0; display: none;">CF/P.IVA: <span id="receipt-cf"></span></p>
+        </div>
+
+        <table style="width: 100%; text-align: left; margin: 15px 0; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 1px dashed black; font-size: 11px;">
+                    <th style="padding-bottom: 5px;">Descrizione</th>
+                    <th style="padding-bottom: 5px; text-align: right;">Importo</th>
+                </tr>
+            </thead>
+            <tbody id="receipt-items">
+                <!-- Items verranno iniettati qui da JS -->
+            </tbody>
+        </table>
+
+        <div style="text-align: right; margin-top: 10px;">
+            <p style="margin: 0; font-size: 12px; font-weight: bold;">TOTALE COMPLESSIVO</p>
+            <p style="margin: 5px 0 15px; font-size: 18px; font-weight: bold;">€ <span id="receipt-total">0.00</span></p>
+        </div>
+        
+        <div style="text-align: right; font-size: 11px; margin-bottom: 15px;">
+            <p style="margin: 0;">Pagamento: <span id="receipt-method">Contanti</span></p>
+            <p style="margin: 0;">Resto: € 0.00</p>
+        </div>
+
+        <p style="margin: 0; padding-top: 10px; border-top: 1px dashed black; font-size: 10px;">Grazie e Arrivederci!</p>
+        <p style="margin: 5px 0 0; font-size: 9px; color: #666;">WebStudio Pro POS System</p>
+    </div>
+
+    <!-- Core Logic Scripts -->
+    <script src="core.js"></script>
+    <script src="app.js"></script>
+    <script src="primanota.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('SW Registered!', reg))
+            .catch(err => console.log('SW Error', err));
+        });
+      }
+      lucide.createIcons();
+    </script>
+</body>
+</html>
