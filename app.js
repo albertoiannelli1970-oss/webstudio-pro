@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'settings': { title: 'Impostazioni Piattaforma', desc: 'Personalizza il contenitore globale e gli accessi.' },
         'pos': { title: 'Punto Cassa Veloce®', desc: 'Design ottimizzato per operazioni touch.' },
         'fiscal': { title: 'Cassetto Chiusure Fiscali G.d.F.', desc: 'Archivio Sigillato Trasmissioni Agenzia delle Entrate.' },
-        'primanota': { title: 'Prima Nota Master®', desc: 'Il battito finanziario della tua azienda. Entrate, Uscite, Banca e Statistiche.' }
+        'primanota': { title: 'Prima Nota Master®', desc: 'Il battito finanziario della tua azienda. Entrate, Uscite, Banca e Statistiche.' },
+        'falco-hq': { title: 'FALCO COMMAND CENTER', desc: 'Pannello di controllo globale per il Creator.' }
     };
 
     navItems.forEach(item => {
@@ -2059,10 +2060,52 @@ class CalendarApp {
 
 // Global Init protetto al caricamento completo
 document.addEventListener('DOMContentLoaded', () => {
+/**
+ * FALCO HQ - Creator Office Logic
+ */
+class FalcoApp {
+    constructor() {
+        this.console = document.getElementById('falco-console-output');
+    }
+
+    log(msg, type = 'system') {
+        const div = document.createElement('div');
+        const time = new Date().toLocaleTimeString();
+        div.innerHTML = `<span style="opacity:0.5">[${time}]</span> <span style="color:${type === 'error' ? '#ef4444' : '#10b981'}">${msg}</span>`;
+        if(this.console) {
+            this.console.appendChild(div);
+            document.getElementById('falco-console').scrollTop = document.getElementById('falco-console').scrollHeight;
+        }
+    }
+
+    pushUpdate() {
+        this.log('Inizializzazione distribuzione v1.0.43...');
+        setTimeout(() => this.log('Compilazione moduli in corso...', 'action'), 1000);
+        setTimeout(() => {
+            this.log('AGGIORNAMENTO INVIATO A TUTTI GLI UTENTI.', 'success');
+            window.coreSystem.logMessage('[FALCO] Update globale rilasciato con successo.', 'success');
+        }, 3000);
+    }
+
+    createNewApp() {
+        const name = prompt("Inserisci il nome della nuova Micro-App:");
+        if(name) {
+            this.log(`Creazione scaffolding per: ${name.toUpperCase()}...`);
+            setTimeout(() => this.log(`Modulo ${name} configurato nella Sandbox.`, 'success'), 1500);
+        }
+    }
+
+    managePayments() {
+        this.log('Accesso al Gateway di Pagamento Stripe/PayPal...');
+        setTimeout(() => this.log('Configurazione tariffe: Modulo Fatturazione -> €19/mese', 'system'), 1000);
+    }
+}
+
     try {
         window.appFatture = new FattureApp();
         window.appSettings = new SettingsApp();
         window.appRubrica = new RubricaApp();
+        window.appFalco = new FalcoApp();
         window.appInventory = new InventoryApp();
         window.appQuotes = new QuotesApp();
         window.appPos = new PosApp();

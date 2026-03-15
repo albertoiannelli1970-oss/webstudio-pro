@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prima-nota-v1';
+const CACHE_NAME = 'webstudio-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -6,14 +6,30 @@ const ASSETS = [
   './app.js',
   './core.js',
   './primanota.js',
-  './logo.png'
+  './manifest.json',
+  './logo.png',
+  './logo-agenda.png',
+  './logo-fatture.png',
+  './logo-magazzino.png',
+  './logo-preventivi.png',
+  './logo-primanota.png',
+  './logo-rubrica.png'
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS);
     })
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(
+      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+    ))
   );
 });
 

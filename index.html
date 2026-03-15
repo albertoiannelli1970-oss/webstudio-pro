@@ -117,6 +117,14 @@
                     <i data-lucide="settings"></i>
                     <span>Impostazioni Piattaforma</span>
                 </a>
+
+                <div class="nav-section mt-4" style="color: var(--accent); font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="terminal" style="width: 14px;"></i> FALCO COMMAND CENTER
+                </div>
+                <a href="#" class="nav-item creator-link" data-target="falco-hq" style="background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), transparent); border-left: 3px solid var(--accent);">
+                    <i data-lucide="shield-alert" style="color: var(--accent);"></i>
+                    <span style="font-weight: bold; letter-spacing: 1px;">OFFICE: FALCO</span>
+                </a>
             </nav>
 
             <div class="sidebar-footer">
@@ -802,6 +810,69 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+
+                <!-- View: FALCO HQ (Creator Office) -->
+                <div id="view-falco-hq" class="view-section">
+                    <div class="falco-header glass-panel p-4 mb-4" style="border-left: 5px solid var(--accent); background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), transparent);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h1 style="font-family: 'Outfit'; color: var(--accent); letter-spacing: 2px;">FALCO HQ <span style="font-size: 14px; color: #fff; font-weight: 400; opacity: 0.6;">- Creator Command Center</span></h1>
+                                <p style="color: var(--text-muted);">Accesso Autorizzato: Identità FALCO confermata.</p>
+                            </div>
+                            <div class="status-badge pulse">
+                                <i data-lucide="cpu" style="width: 16px;"></i> ONLINE
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-cards three-cols mb-4">
+                        <div class="stat-card glass-panel falco-card">
+                            <i data-lucide="refresh-cw" class="falco-icon"></i>
+                            <div class="stat-info">
+                                <span>Core Engine Build</span>
+                                <h4>v 1.0.42-STABLE</h4>
+                                <button class="btn btn-outline btn-small mt-2" onclick="appFalco.pushUpdate()">Lancia Aggiornamento</button>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel falco-card">
+                            <i data-lucide="plus-square" class="falco-icon" style="color: #10b981;"></i>
+                            <div class="stat-info">
+                                <span>Nuove Micro-App</span>
+                                <h4>Progetti in Draft: 2</h4>
+                                <button class="btn btn-outline btn-small mt-2" onclick="appFalco.createNewApp()">Crea Nuova App</button>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel falco-card">
+                            <i data-lucide="credit-card" class="falco-icon" style="color: #f59e0b;"></i>
+                            <div class="stat-info">
+                                <span>Motore Pagamenti</span>
+                                <h4>Piani: Base, Pro, Custom</h4>
+                                <button class="btn btn-outline btn-small mt-2" onclick="appFalco.managePayments()">Gestisci Tariffe</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="glass-panel p-4" style="grid-column: span 2;">
+                            <h3 class="mb-3"><i data-lucide="git-branch" style="width: 18px;"></i> Console Sviluppatore (Falco Dev)</h3>
+                            <div id="falco-console" style="background: rgba(0,0,0,0.5); border-radius: 12px; height: 300px; padding: 15px; font-family: 'Courier New', monospace; font-size: 13px; color: #10b981; overflow-y: auto;">
+                                <div>[CORE] Inizializzazione protocollo Falco...</div>
+                                <div>[SYS] Accesso al kernel WebStudio Pro garantito.</div>
+                                <div>[DB] Connesso al database globale degli abbonamenti.</div>
+                                <div id="falco-console-output"></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-4">
+                            <h3 class="mb-3">Quick Actions</h3>
+                            <div class="btn-stack" style="display: flex; flex-direction: column; gap: 10px;">
+                                <button class="btn btn-primary w-100" style="background: var(--accent);"><i data-lucide="shield-check"></i> Verifica Licenze Utenti</button>
+                                <button class="btn btn-outline w-100"><i data-lucide="database"></i> Ottimizza Database</button>
+                                <button class="btn btn-outline w-100 text-danger" style="border-color: rgba(239, 68, 68, 0.3);"><i data-lucide="power"></i> Reboot Core Platform</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
