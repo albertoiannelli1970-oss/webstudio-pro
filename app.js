@@ -55,12 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- WebStudio UI Logic ---
 function toggleSidebar(force) {
     const sidebar = document.getElementById('main-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
     if(force === true) {
         sidebar.classList.add('open');
+        if(overlay) overlay.classList.add('visible');
     } else if (force === false) {
         sidebar.classList.remove('open');
+        if(overlay) overlay.classList.remove('visible');
     } else {
-        sidebar.classList.toggle('open');
+        const isOpen = sidebar.classList.toggle('open');
+        if(overlay) {
+            if(isOpen) overlay.classList.add('visible');
+            else overlay.classList.remove('visible');
+        }
     }
 }
 
@@ -69,6 +77,35 @@ function showStep2() {
     document.getElementById('landing-step-1').classList.add('hidden');
     document.getElementById('landing-step-2').classList.remove('hidden');
     if(window.lucide) window.lucide.createIcons();
+}
+
+let selectedUserType = '';
+
+function showRegistration(type) {
+    selectedUserType = type;
+    document.getElementById('landing-step-2').classList.add('hidden');
+    document.getElementById('landing-step-3').classList.remove('hidden');
+    document.getElementById('reg-type').textContent = `(${type})`;
+}
+
+function validateAndEnter(e) {
+    e.preventDefault();
+    const name = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const privacy = document.getElementById('reg-privacy').checked;
+
+    if (!name || !email || !privacy) {
+        alert("Completa tutti i campi e accetta la privacy per continuare.");
+        return;
+    }
+
+    // Salviamo i dati nel profilo
+    if (window.appSettings) {
+        window.appSettings.companyData.name = name;
+        window.appSettings.companyData.email = email;
+    }
+
+    enterApp(selectedUserType);
 }
 
 function enterApp(type) {

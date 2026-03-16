@@ -36,24 +36,45 @@
             <div id="landing-step-2" class="hidden">
                 <p class="selection-text">Identificati per accedere all'ecosistema:</p>
                 <div class="selection-grid">
-                    <button class="btn btn-outline selection-card" onclick="enterApp('Azienda')">
+                    <button class="btn btn-outline selection-card" onclick="showRegistration('Azienda')">
                         <i data-lucide="building-2"></i>
                         <span>AZIENDA</span>
                     </button>
-                    <button class="btn btn-outline selection-card" onclick="enterApp('Privato')">
+                    <button class="btn btn-outline selection-card" onclick="showRegistration('Privato')">
                         <i data-lucide="user"></i>
                         <span>PRIVATO</span>
                     </button>
                 </div>
             </div>
+
+            <div id="landing-step-3" class="hidden" style="text-align: left;">
+                <h3 id="reg-title" style="margin-bottom: 20px; color: var(--accent);">Dati Registrazione <span id="reg-type"></span></h3>
+                <form id="landing-reg-form" onsubmit="validateAndEnter(event)">
+                    <div class="input-group mb-3">
+                        <label>Ragione Sociale / Nome *</label>
+                        <input type="text" id="reg-name" required placeholder="Inserisci il tuo nome">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label>Email Ufficiale *</label>
+                        <input type="email" id="reg-email" required placeholder="esempio@email.it">
+                    </div>
+                    <div class="input-group mb-3" style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
+                        <input type="checkbox" id="reg-privacy" required style="width: auto; margin-top: 5px;">
+                        <label style="font-size: 11px; line-height: 1.4;">Accetto il trattamento dei dati personali secondo la normativa vigente e le condizioni di servizio di WebStudio Pro®.</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">SALVA E ACCEDI</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <div id="app-container" class="hidden-app">
+        <div id="sidebar-overlay" onclick="toggleSidebar(false)"></div>
         <!-- Sidebar Navigation (Dropdown Drawer) -->
         <aside class="sidebar glass-panel" id="main-sidebar">
-            <div class="sidebar-header" style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
-                <button class="btn btn-icon" onclick="toggleSidebar()"><i data-lucide="x"></i></button>
+            <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                <h3 style="font-size: 16px; color: var(--accent); margin:0;">MENU NAVIGAZIONE</h3>
+                <button class="btn btn-icon" onclick="toggleSidebar(false)" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i data-lucide="x"></i></button>
             </div>
             <div class="brand">
                 <img src="logo.png" alt="WebStudio Logo" class="brand-logo">

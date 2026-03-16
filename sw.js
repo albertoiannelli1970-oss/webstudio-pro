@@ -1,4 +1,4 @@
-const CACHE_NAME = 'webstudio-v2';
+const CACHE_NAME = 'webstudio-v3';
 const ASSETS = [
   './',
   './index.html',
