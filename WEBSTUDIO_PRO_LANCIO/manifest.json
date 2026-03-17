@@ -1,0 +1,16 @@
+{
+  "name": "WebStudio Pro® 1.0",
+  "short_name": "WebStudio Pro",
+  "description": "Ecosistema di Micro-App per la gestione aziendale",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a2540",
+  "theme_color": "#0a2540",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
