@@ -2112,54 +2112,43 @@ class CalendarApp {
 
 
 // Global Init protetto al caricamento completo
-document.addEventListener('DOMContentLoaded', () => {
-/**
- * FALCO HQ - Creator Office Logic
- */
+// --- WEBSTUDIO PRO APPS - GLOBAL CLASSES ---
+
 class FalcoApp {
     constructor() {
         this.console = document.getElementById('falco-console-output');
     }
 
-    log(msg, type = 'system') {
-        const div = document.createElement('div');
+    log(message, type = 'info') {
+        if (!this.console) return;
         const time = new Date().toLocaleTimeString();
-        div.innerHTML = `<span style="opacity:0.5">[${time}]</span> <span style="color:${type === 'error' ? '#ef4444' : '#10b981'}">${msg}</span>`;
-        if(this.console) {
-            this.console.appendChild(div);
-            document.getElementById('falco-console').scrollTop = document.getElementById('falco-console').scrollHeight;
+        const colors = {
+            info: '#94a3b8',
+            success: '#10b981',
+            warning: '#f59e0b',
+            error: '#ef4444',
+            action: '#a855f7',
+            system: '#3b82f6'
+        };
+        const color = colors[type] || colors.info;
+        const entry = document.createElement('div');
+        entry.style.cssText = `margin-bottom: 5px; color: ${color}; font-size: 13px; font-family: 'Fira Code', monospace;`;
+        entry.innerHTML = `<span style="opacity:0.5">[${time}]</span> ${message}`;
+        this.console.prepend(entry);
+        
+        // Mantieni massimo 50 log per performance
+        while (this.console.children.length > 50) {
+            this.console.removeChild(this.console.lastChild);
         }
-    }
-
-    pushUpdate() {
-        this.log('Inizializzazione distribuzione v1.0.43...');
-        setTimeout(() => this.log('Compilazione moduli in corso...', 'action'), 1000);
-        setTimeout(() => {
-            this.log('AGGIORNAMENTO INVIATO A TUTTI GLI UTENTI.', 'success');
-            window.coreSystem.logMessage('[FALCO] Update globale rilasciato con successo.', 'success');
-        }, 3000);
-    }
-
-    createNewApp() {
-        const name = prompt("Inserisci il nome della nuova Micro-App:");
-        if(name) {
-            this.log(`Creazione scaffolding per: ${name.toUpperCase()}...`);
-            setTimeout(() => this.log(`Modulo ${name} configurato nella Sandbox.`, 'success'), 1500);
-        }
-    }
-
-    managePayments() {
-        this.log('Accesso al Gateway di Pagamento Stripe/PayPal...');
-        setTimeout(() => this.log('Configurazione tariffe: Modulo Fatturazione -> €19/mese', 'system'), 1000);
     }
 
     async syncCloudUsers() {
-        this.log('Connessione al Database Centrale Supabase...', 'system');
-        
-        if(!cloudSync) {
+        if (!cloudSync) {
             this.log('ERRORE: Supabase non inizializzato.', 'error');
             return;
         }
+
+        this.log('Connessione al Database Centrale Supabase...', 'action');
 
         try {
             const { data, error } = await cloudSync.from('iscritti').select('*');
@@ -2194,6 +2183,9 @@ class FalcoApp {
     }
 }
 
+// Global Init protetto al caricamento completo
+document.addEventListener('DOMContentLoaded', () => {
+
     try {
         window.appFatture = new FattureApp();
         window.appSettings = new SettingsApp();
@@ -2203,6 +2195,17 @@ class FalcoApp {
         window.appQuotes = new QuotesApp();
         window.appPos = new PosApp();
         window.appCalendar = new CalendarApp();
+
+        // Listen for Falco Buttons HQ (HARD-FIX)
+        document.getElementById('btn-falco-sync')?.addEventListener('click', () => {
+            if(window.appFalco) window.appFalco.syncCloudUsers();
+        });
+        document.getElementById('btn-falco-optimize')?.addEventListener('click', () => {
+            if(window.appFalco) window.appFalco.optimizeDatabase();
+        });
+        document.getElementById('btn-falco-reboot')?.addEventListener('click', () => {
+            if(window.appFalco) window.appFalco.rebootPlatform();
+        });
 
         // Listen for POS search bar
         document.getElementById('pos-search')?.addEventListener('keyup', () => {

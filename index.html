@@ -891,9 +891,9 @@
                         <div class="glass-panel p-4">
                             <h3 class="mb-3">Quick Actions</h3>
                             <div class="btn-stack" style="display: flex; flex-direction: column; gap: 10px;">
-                                <button class="btn btn-primary w-100" style="background: var(--accent);" onclick="appFalco.syncCloudUsers()"><i data-lucide="shield-check"></i> Verifica Licenze Utenti</button>
-                                <button class="btn btn-outline w-100" onclick="appFalco.optimizeDatabase()"><i data-lucide="database"></i> Ottimizza Database</button>
-                                <button class="btn btn-outline w-100 text-danger" style="border-color: rgba(239, 68, 68, 0.3);" onclick="appFalco.rebootPlatform()"><i data-lucide="power"></i> Reboot Core Platform</button>
+                                <button id="btn-falco-sync" class="btn btn-primary w-100" style="background: var(--accent);"><i data-lucide="shield-check"></i> Verifica Licenze Utenti</button>
+                                <button id="btn-falco-optimize" class="btn btn-outline w-100"><i data-lucide="database"></i> Ottimizza Database</button>
+                                <button id="btn-falco-reboot" class="btn btn-outline w-100 text-danger" style="border-color: rgba(239, 68, 68, 0.3);"><i data-lucide="power"></i> Reboot Core Platform</button>
                             </div>
                         </div>
                     </div>
