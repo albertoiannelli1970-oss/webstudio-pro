@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#05070f">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    <title>STUDIO PRO 1.0 | Alberto Iannelli</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="nebula.css">
+</head>
+<body class="studio-pwa">
+
+    <div class="studio-shell">
+        <aside class="studio-sidebar">
+            <div class="studio-logo">
+                <div class="logo-symbol">W</div>
+                <div class="logo-text">STUDIO PRO <span style="opacity:0.3">1.0</span></div>
+            </div>
+
+            <nav id="studio-nav">
+                <!-- App items added here -->
+            </nav>
+
+            <div style="margin-top: auto;">
+                <button id="btn-install" class="nav-item" style="width:100%; background: var(--acc-cyan); color: #000; border: none; font-weight: 800; display:none;">
+                    <i data-lucide="download"></i> <span>INSTALLA APP</span>
+                </button>
+                <div class="nav-item">
+                    <i data-lucide="user"></i> <span>FALCO70</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="studio-main">
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="font-size: 32px; font-weight: 900; letter-spacing: -1.5px;">POTENZA LOCALE</h1>
+                    <p style="opacity:0.4; font-size: 13px; font-weight: 500;">INTELLIGENZA SINCRONIZZATA</p>
+                </div>
+                <div id="status-badge" style="background: rgba(0, 242, 255, 0.1); border: 1px solid var(--acc-cyan); color: var(--acc-cyan); font-size: 10px; padding: 5px 15px; border-radius: 20px; font-weight: 800;">NEXUS 2.0 ONLINE</div>
+            </header>
+
+            <div class="view-container glass-panel" id="main-viewport">
+                <!-- Apps render here -->
+                <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0.3;">
+                    <i data-lucide="layout-grid" style="width: 60px; height: 60px; margin-bottom: 20px;"></i>
+                    <h2>STUDIO PRO 1.0</h2>
+                    <p>Nessun modulo agganciato. Seleziona un'app dalla sidebar.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="nexus.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Nexus.boot('main-viewport');
+
+            // Hook into Nexus branding
+            Nexus.on('module-registered', (module) => {
+                const nav = document.getElementById('studio-nav');
+                const item = document.createElement('div');
+                item.className = 'nav-item';
+                item.innerHTML = `<i data-lucide="${module.icon}"></i> <span>${module.label}</span>`;
+                item.onclick = () => {
+                   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                   item.classList.add('active');
+                   Nexus.launch(module.id);
+                };
+                nav.appendChild(item);
+                if (window.lucide) lucide.createIcons();
+            });
+
+            // Initial PWA check
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                document.getElementById('btn-install').style.display = 'flex';
+            });
+
+            document.getElementById('btn-install').onclick = async () => {
+                if (!deferredPrompt) return;
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') document.getElementById('btn-install').style.display = 'none';
+            };
+
+            // Register Sample App placeholder
+            Nexus.register('dashboard', { label: 'Dashboard Live', icon: 'zap', uri: 'modules/dashboard.html' });
+            
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

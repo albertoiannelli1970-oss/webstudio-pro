@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root { --bg: transparent; --acc: #00f2ff; --glass: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); }
+        body { font-family: 'Outfit', sans-serif; color: #fff; margin:0; padding: 20px; overflow: hidden; background: var(--bg); }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 25px; backdrop-filter: blur(10px); }
+        .stat { font-size: 32px; font-weight: 900; margin: 10px 0; color: var(--acc); }
+        .label { font-size: 12px; opacity: 0.5; text-transform: uppercase; letter-spacing: 1px; }
+        .chart-sim { height: 100px; display: flex; align-items: flex-end; gap: 4px; margin-top: 20px; }
+        .bar { flex: 1; background: var(--acc); border-radius: 2px; opacity: 0.3; transition: all 0.5s; }
+        .bar:hover { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="grid">
+        <div class="card">
+            <div class="label">Performance Sistema</div>
+            <div class="stat">98.4%</div>
+            <div style="font-size: 11px; color: #00ff88;">Ottimizzazione Nexus: Active</div>
+        </div>
+        <div class="card">
+            <div class="label">Data Sync Status</div>
+            <div class="stat" id="sync-val">LIVE</div>
+            <div class="chart-sim">
+                <div class="bar" style="height: 40%"></div>
+                <div class="bar" style="height: 70%"></div>
+                <div class="bar" style="height: 50%"></div>
+                <div class="bar" style="height: 90%"></div>
+                <div class="bar" style="height: 30%"></div>
+            </div>
+        </div>
+        <div class="card" style="background: linear-gradient(135deg, rgba(112,0,255,0.1), rgba(0,242,255,0.1));">
+            <div class="label">Moduli Attivi</div>
+            <div class="stat">1 / 10</div>
+            <div style="font-size: 11px; opacity: 0.5;">In attesa di espansione...</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; padding: 30px;" class="card">
+        <h2 style="font-weight: 900; letter-spacing: -1px; margin-bottom: 20px;">Sincronizzazione Eventi</h2>
+        <div id="log" style="font-family: monospace; font-size: 12px; opacity: 0.6; height: 150px; overflow-y: auto;">
+             [System] Benvenuto in Studio Pro 1.0, Falco70.<br/>
+             [Nexus] Inizializzazione bus dati...<br/>
+             [Nexus] Nodo Dashboard pronto.<br/>
+        </div>
+    </div>
+
+    <script>
+        // Listen for parent messages via Nexus
+        window.addEventListener('message', (e) => {
+            const log = document.getElementById('log');
+            const data = e.data;
+            if (data && data.type) {
+                log.innerHTML += `[Event] ${data.type} ricevuto.<br/>`;
+                log.scrollTop = log.scrollHeight;
+            }
+        });
+
+        // Simulate bars
+        setInterval(() => {
+            document.querySelectorAll('.bar').forEach(b => {
+                b.style.height = (Math.random() * 80 + 20) + '%';
+            });
+        }, 2000);
+        
+        if (window.lucide) lucide.createIcons();
+    </script>
+</body>
+</html>

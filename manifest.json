@@ -1,0 +1,17 @@
+{
+  "name": "STUDIO PRO 1.0",
+  "short_name": "StudioPro",
+  "description": "L'ecosistema professionale autonomo di Alberto Iannelli.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#05070f",
+  "theme_color": "#00f2ff",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
