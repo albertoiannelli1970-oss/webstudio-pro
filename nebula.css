@@ -1,11 +1,10 @@
 :root {
-    --bg-deep: #05070f;
-    --acc-cyan: #00f2ff;
-    --acc-violet: #7000ff;
-    --acc-pink: #ff00c8;
-    --glass-white: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-main: #e0e6ed;
+    --bg-deep: #0a0b10;
+    --acc-orange: #FF7000;
+    --acc-purple: #7000FF;
+    --glass-white: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-main: #ffffff;
     --font-primary: 'Outfit', sans-serif;
 }
 
@@ -43,13 +42,13 @@ body {
 .logo-symbol {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, var(--acc-cyan), var(--acc-violet));
+    background: linear-gradient(135deg, var(--acc-orange), var(--acc-purple));
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    color: #000;
+    color: #fff;
     font-size: 20px;
 }
 
@@ -75,12 +74,12 @@ body {
 .nav-item:hover, .nav-item.active {
     background: var(--glass-white);
     opacity: 1;
-    box-shadow: 0 4px 15px rgba(0,242,255,0.05);
+    box-shadow: 0 4px 15px rgba(255,112,0,0.05);
     border: 1px solid var(--glass-border);
 }
 
 .nav-item.active {
-    color: var(--acc-cyan);
+    color: var(--acc-orange);
 }
 
 .studio-main {
