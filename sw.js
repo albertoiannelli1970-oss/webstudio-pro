@@ -1,4 +1,4 @@
-const CACHE_NAME = 'studio-pro-v1';
+const CACHE_NAME = 'studio-pro-v2-vibrant';
 const ASSETS = [
   'index.html',
   'nebula.css',
