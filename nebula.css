@@ -96,6 +96,15 @@ body {
     border-radius: 24px;
 }
 
+.status-badge {
+    font-size: 10px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+
 .view-container {
     flex: 1;
     position: relative;

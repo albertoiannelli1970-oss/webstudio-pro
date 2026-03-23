@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="modules/schema_registry.js"></script>
     <link rel="stylesheet" href="nebula.css">
 </head>
 <body class="studio-pwa">
@@ -42,7 +44,11 @@
                     <h1 style="font-size: 32px; font-weight: 900; letter-spacing: -1.5px;">POTENZA LOCALE</h1>
                     <p style="opacity:0.4; font-size: 13px; font-weight: 500;">INTELLIGENZA SINCRONIZZATA</p>
                 </div>
-                <div id="status-badge" style="background: rgba(0, 242, 255, 0.1); border: 1px solid var(--acc-cyan); color: var(--acc-cyan); font-size: 10px; padding: 5px 15px; border-radius: 20px; font-weight: 800;">NEXUS 2.0 ONLINE</div>
+                <div style="display: flex; gap: 10px;">
+                    <div id="cloud-badge" class="status-badge" style="background: rgba(255, 112, 0, 0.1); border: 1px solid #ff7000; color: #ff7000;">CLOUD: OFF</div>
+                    <div id="hardware-badge" class="status-badge" style="background: rgba(112, 0, 255, 0.1); border: 1px solid #7000ff; color: #7000ff;">BRIDGE: READY</div>
+                    <div id="status-badge" class="status-badge" style="background: rgba(0, 242, 255, 0.1); border: 1px solid var(--acc-cyan); color: var(--acc-cyan);">NEXUS 2.1</div>
+                </div>
             </header>
 
             <div class="view-container glass-panel" id="main-viewport">
@@ -91,8 +97,15 @@
                 if (outcome === 'accepted') document.getElementById('btn-install').style.display = 'none';
             };
 
-            // Register Sample App placeholder
+            // Register Apps
             Nexus.register('dashboard', { label: 'Dashboard Live', icon: 'zap', uri: 'modules/dashboard.html' });
+            Nexus.register('magazzino', { label: 'Magazzino Smart', icon: 'package', uri: 'modules/magazzino.html' });
+
+            // Global System Handlers
+            Nexus.on('stock-updated', (data) => {
+                console.log('Nexus: Movimento Magazzino Rilevato!', data);
+                // Trigger global notifications or dashboard updates
+            });
             
             if (window.lucide) lucide.createIcons();
         });

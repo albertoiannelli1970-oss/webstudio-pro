@@ -10,7 +10,52 @@ const Nexus = (() => {
     return {
         boot: (containerId) => {
             viewport = document.getElementById(containerId);
-            console.log('Nexus 2.0: Booting Ecosistema...');
+            console.log('Nexus 2.2: Booting Ecosistema Optimized...');
+            // Inizializza Proxy Asset se disponibili
+            Nexus.assets = window.Lucide || {}; 
+        },
+
+        // Data Validation (DNA Check)
+        validate: (schemaName, data) => {
+            const schema = window.NexusSchema ? window.NexusSchema[schemaName] : null;
+            if (!schema) return true; // No schema, skip validation
+            
+            for (const key in schema) {
+                if (!(key in data)) {
+                    console.error(`Nexus DNA Alert: Campo mancante [${key}] in ${schemaName}`);
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        // Cloud Persistence & Sync
+        sync: async (config) => {
+            if (!window.supabase) return console.error('Nexus Cloud: Supabase non caricata.');
+            window.db = window.supabase.createClient(config.url, config.key);
+            console.log('Nexus Cloud: Sincronizzazione Attiva.');
+            Nexus.emit('cloud-status', { status: 'online' });
+        },
+
+        // Hardware Communication Bridge
+        bridge: async (type) => {
+            try {
+                if (type === 'serial') {
+                    const port = await navigator.serial.requestPort();
+                    await port.open({ baudRate: 9600 });
+                    console.log('Nexus Bridge: Porta Seriale Connessa.');
+                    return port;
+                }
+                if (type === 'usb') {
+                    const device = await navigator.usb.requestDevice({ filters: [] });
+                    await device.open();
+                    console.log('Nexus Bridge: Dispositivo USB Connesso.');
+                    return device;
+                }
+            } catch (err) {
+                console.error('Nexus Bridge Error:', err);
+                Nexus.emit('hardware-error', { message: err.message });
+            }
         },
 
         register: (id, config) => {

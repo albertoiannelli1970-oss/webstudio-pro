@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root { --bg: transparent; --acc: #00f2ff; --glass: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); }
+        body { font-family: 'Outfit', sans-serif; color: #fff; margin:0; padding: 30px; background: var(--bg); height: 100vh; overflow-y: auto; }
+        
+        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+        .title { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 25px; backdrop-filter: blur(10px); position: relative; transition: all 0.3s; }
+        .card:hover { border-color: var(--acc); transform: translateY(-5px); }
+        
+        .card.alert { border-color: #ff4d4d; background: rgba(255, 77, 77, 0.05); }
+        .badge { position: absolute; top: 15px; right: 15px; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; }
+        .badge.low { background: #ff4d4d; color: #fff; }
+        .badge.ok { background: #00ff88; color: #000; }
+
+        .item-name { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .item-qty { font-size: 32px; font-weight: 900; color: var(--acc); }
+        .item-supplier { font-size: 12px; opacity: 0.4; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .btn-add { background: var(--acc); color: #000; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-add:hover { filter: brightness(1.2); }
+
+        /* Modal / Form */
+        .form-overlay { position: fixed; inset:0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); display:none; align-items:center; justify-content:center; padding: 20px; z-index: 100; }
+        .modal { background: #0a0c14; border: 1px solid var(--border); padding: 40px; border-radius: 30px; width: 100%; max-width: 450px; }
+        input { width: 100%; background: var(--glass); border: 1px solid var(--border); padding: 15px; color: #fff; border-radius: 12px; margin-bottom: 20px; font-family: inherit; }
+        input:focus { border-color: var(--acc); outline: none; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>
+            <div class="title">MAGAZZINO <span style="opacity: 0.3;">SMART 1.0</span></div>
+            <p style="opacity: 0.4; font-size: 13px;">Gestione scorte ottimizzata & Offline-First</p>
+        </div>
+        <button class="btn-add" onclick="showModal()">
+            <i data-lucide="plus-circle"></i> AGGIUNGI ARTICOLO
+        </button>
+    </div>
+
+    <div class="grid" id="stock-grid">
+        <!-- Stock items items here -->
+    </div>
+
+    <!-- Modal Form -->
+    <div class="form-overlay" id="modal">
+        <div class="modal animate-fade">
+            <h2 style="margin-bottom: 30px;">Nuovo Articolo</h2>
+            <input type="text" id="name" placeholder="Nome Prodotto">
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="qty" placeholder="Quantità">
+                <input type="number" id="min_qty" placeholder="Scorta Minima">
+            </div>
+            <input type="text" id="supplier" placeholder="Fornitore">
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button class="btn-add" style="flex: 1; background: #333; color: #fff;" onclick="hideModal()">ANNULLA</button>
+                <button class="btn-add" style="flex: 1;" onclick="saveItem()">SALVA PRODOTTO</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stock = JSON.parse(localStorage.getItem('sp10_magazzino')) || [];
+
+        function render() {
+            const grid = document.getElementById('stock-grid');
+            grid.innerHTML = stock.map((item, index) => `
+                <div class="card ${item.qty < item.min_qty ? 'alert' : ''}">
+                    <div class="badge ${item.qty < item.min_qty ? 'low' : 'ok'}">
+                        ${item.qty < item.min_qty ? 'Scorta Bassa' : 'In Stock'}
+                    </div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-qty">${item.qty}</div>
+                    <div class="item-supplier">${item.supplier}</div>
+                    <div style="margin-top: 20px; display: flex; gap: 10px;">
+                        <button onclick="updateQty(${index}, 1)" style="flex:1; background: var(--glass); border: 1px solid var(--border); color:#fff; border-radius: 8px; cursor:pointer;">+</button>
+                        <button onclick="updateQty(${index}, -1)" style="flex:1; background: var(--glass); border: 1px solid var(--border); color:#fff; border-radius: 8px; cursor:pointer;">-</button>
+                    </div>
+                </div>
+            `).join('');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function showModal() { document.getElementById('modal').style.display = 'flex'; }
+        function hideModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function saveItem() {
+            const newItem = {
+                id: Date.now().toString(),
+                name: document.getElementById('name').value,
+                qty: parseInt(document.getElementById('qty').value),
+                min_qty: parseInt(document.getElementById('min_qty').value),
+                supplier: document.getElementById('supplier').value
+            };
+
+            // Nexus DNA Validation (Handled via Parent if available, or locally)
+            if (parent.Nexus && parent.Nexus.validate('STOCK_ITEM', newItem)) {
+                stock.push(newItem);
+                localStorage.setItem('sp10_magazzino', JSON.stringify(stock));
+                
+                // Emit event to Nexus Bus
+                parent.postMessage({ type: 'stock-updated', data: newItem }, '*');
+                
+                hideModal();
+                render();
+            } else {
+                alert('Errore: Dati non conformi allo schema Nexus!');
+            }
+        }
+
+        function updateQty(index, delta) {
+            stock[index].qty += delta;
+            localStorage.setItem('sp10_magazzino', JSON.stringify(stock));
+            parent.postMessage({ type: 'stock-qty-changed', data: stock[index] }, '*');
+            render();
+        }
+
+        document.addEventListener('DOMContentLoaded', render);
+    </script>
+</body>
+</html>
